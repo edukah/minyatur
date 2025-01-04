@@ -127,14 +127,10 @@ class Slider {
         return;
       }
 
-      console.log('scrollEvent');
-
       this.scrollEndTimer = window.setTimeout(() => {
         const scrollIndex = Math.round(this.boardList.scrollLeft / this.boardList.firstElementChild.offsetWidth);
 
         if (this.activeIndex !== scrollIndex) {
-          console.log('scrollEventInsert');
-
           this.insertItem(scrollIndex, { behavior: 'smooth', source: 'scrollEvent' });
         }
       }, 70);
@@ -259,8 +255,6 @@ class Slider {
   }
 
   insertItem(newIndex, { behavior = null, source = null } = {}) {
-    console.log('insertItem:' + source);
-
     if (this.activeIndex > newIndex && newIndex < 0 && this.configObject.loop) {
       this.prevLoopMotion();
 

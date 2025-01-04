@@ -275,6 +275,7 @@
   cursor: default;
   max-width: 100%;
   max-height: 100%;
+  outline: none;
 }
 .minyatur .minyatur-board li img, .minyatur .minyatur-board li video {
   object-fit: scale-down;
@@ -548,10 +549,6 @@
 
 /* END OF SLIDER THUMBNAIL */
 /* Zoom */
-.minyatur-zoom-container {
-  position: relative;
-}
-
 .minyatur-zoom-lens {
   position: absolute;
   visibility: hidden;
