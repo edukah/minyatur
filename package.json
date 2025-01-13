@@ -13,6 +13,9 @@
   "keywords": [],
   "author": "pseudonynnous",
   "license": "MIT",
+  "main": "public/minyatur.js",
+  "sass": "source/stylesheet/minyatur.scss",
+  "style": "public/minyatur.css",
   "devDependencies": {
     "@babel/cli": "^7.25.7",
     "@babel/core": "^7.25.8",

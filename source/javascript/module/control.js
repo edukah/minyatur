@@ -6,8 +6,8 @@ class Control {
     this.buttonContainer.classList.add('minyatur-board-button-container');
     this.sliderInstance.boardWrapper.appendChild(this.buttonContainer);
 
-    if (this.sliderInstance.configObject.contentWidthLimit) {
-      this.buttonContainer.style.maxWidth = this.sliderInstance.configObject.contentWidthLimit;
+    if (this.sliderInstance.config.has('contentWidthLimit')) {
+      this.buttonContainer.style.maxWidth = this.sliderInstance.config.get('contentWidthLimit');
     }
 
     this.prevButton = document.createElement('div');

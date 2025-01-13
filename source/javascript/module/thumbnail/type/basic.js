@@ -1,8 +1,8 @@
 import Thumbnail from '../thumbnail.js';
 
 class Basic extends Thumbnail {
-  constructor(sliderInstance, configUser) {
-    super(sliderInstance, configUser, 'thumbnail/basic');
+  constructor(sliderInstance) {
+    super(sliderInstance);
 
     this.thumbnailWrapper.classList.add('minyatur-thumbnail-basic');
 

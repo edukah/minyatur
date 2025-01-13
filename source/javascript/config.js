@@ -9,7 +9,7 @@ const config = {
   styleAutoload: true, // Default styles are added to <head> automatically. If you want to add your own css, this field must be false.
   languageCode: 'tr', // Language code
   module: [
-    'thumbnail/dot',
+    'thumbnail',
     'fullscreen',
     'control',
     'zoom'

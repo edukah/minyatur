@@ -1,7 +1,6 @@
 class Div {
   constructor(sliderInstance, mainWrapper) {
     this.sliderInstance = sliderInstance;
-    this.mainWrapper = mainWrapper;
   }
 
   init() {
@@ -16,7 +15,7 @@ class Div {
     this.divWrapper.appendChild(this.divContainer);
 
     // append to root
-    this.mainWrapper.appendChild(this.divWrapper);
+    this.sliderInstance.mainWrapper.appendChild(this.divWrapper);
   }
 
   show() {
@@ -32,7 +31,7 @@ class Div {
     const elementClone = activeSliderItem.cloneNode(true);
 
     // aspect ratio from settings
-    const ratioPercent = this.sliderInstance.configObject.aspectRatio.split(':');
+    const ratioPercent = this.sliderInstance.config.get('aspectRatio').split(':');
     const calculatedHeight = Math.abs(100 / ratioPercent[0] * ratioPercent[1]);
 
     this.divContainer.style.paddingTop = `${calculatedHeight}%`;

@@ -6,32 +6,53 @@ import defaultStyle from '!!css-loader?{"sourceMap":false,"exportType":"string"}
 
 class Slider {
   sliderItems = new Map();
+  config = new Map();
 
-  constructor(configUser = {}, sliderItemsAsParameter = []) {
+  constructor(selectorOrElement, sliderItemsAsParameter = []) {
     this.activeIndex = 0;
     this.boardListOnShift = null;
 
-    this.configObject = { ..._config };
+    if (typeof selectorOrElement === 'string' || selectorOrElement instanceof String) {
+      if (document.getElementById(`#${selectorOrElement}`)) {
+        this.mainContainer = document.getElementById(selectorOrElement);
+      } else {
+        this.mainContainer = document.querySelector(selectorOrElement);
+      }
+    }
 
-    if (typeof configUser !== 'object') {
-      console.error('Config variable must be an object. Minyatur could not load.');
+    if (selectorOrElement instanceof window.HTMLElement) {
+      this.mainContainer = selectorOrElement;
+    }
+
+    if (!this.mainContainer) {
+      console.error('Provide a valid css selector or element. Minyatur could not load.');
 
       return;
     }
 
-    // Overwrite user settings over default settings
-    Object.keys(this.configObject).forEach(key => {
-      if (Object.hasOwn(configUser, key)) {
-        this.configObject[key] = configUser[key];
+    // Generate main container
+    this.mainContainer.classList.add('minyatur');
+    this.mainContainer.__minyatur = this;
+
+    // Config
+    Object.entries(_config).forEach(([key, value]) => {
+      this.config.set(key, value);
+    });
+
+    this.config.forEach((value, key) => {
+      // Overwrite attribute settings over user settings
+      const keyToAttributeName = `data-minyatur-${key.replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, '-$1').toLowerCase()}`;
+      if (this.mainContainer.hasAttribute(keyToAttributeName)) {
+        this.config.set(key, this.mainContainer.getAttribute(keyToAttributeName));
       }
     });
 
     // Variables
-    Language.load(this.configObject.languageCode);
+    Language.load(this.config.get('languageCode'));
     this.language = Language;
 
     // Let's add the default css file if it is not added before
-    if (this.configObject.styleAutoload) {
+    if (this.config.get('styleAutoload')) {
       if (!document.querySelector('.minyatur-default-style') && !document.querySelector('link[href*="minyatur.css"]')) {
         const styleElement = document.createElement('style');
         styleElement.setAttribute('type', 'text/css');
@@ -40,17 +61,6 @@ class Slider {
 
         window.document.head.appendChild(styleElement);
       }
-    }
-
-    // Generate main container
-    this.mainContainer = document.getElementById(this.configObject.id);
-    this.mainContainer.classList.add('minyatur');
-    this.mainContainer.__minyatur = this;
-
-    if (!this.mainContainer) {
-      console.error(`Minyatur Error: There is no container with selector: ${this.configObject.id}`);
-
-      return;
     }
 
     // we will use these later
@@ -69,27 +79,19 @@ class Slider {
     }
 
     // BroadWrapper, holder for slider items
-    this.boardWrapper = document.createElement('div');
-    this.boardWrapper.classList.add('minyatur-board');
-    this.boardWrapper.style.visibility = 'hidden';
-    this.mainContainer.appendChild(this.boardWrapper);
+    this.boardWrapper = document.createElement('div'); this.boardWrapper.classList.add('minyatur-board'); this.boardWrapper.style.visibility = 'hidden'; this.mainContainer.appendChild(this.boardWrapper);
 
     // AspectRatio and width and height related settings.
-    this.boardListContainer = document.createElement('div');
-    this.boardListContainer.classList.add('minyatur-board-list-container');
-    this.boardListContainer.style.overflow = 'hidden';
-    this.boardListContainer.style.height = '0';
-    this.boardWrapper.appendChild(this.boardListContainer);
+    this.boardListContainer = document.createElement('div'); this.boardListContainer.classList.add('minyatur-board-list-container'); this.boardListContainer.style.overflow = 'hidden'; this.boardListContainer.style.height = '0'; this.boardWrapper.appendChild(this.boardListContainer);
 
     // Since the measurement properties return values after adding the BoardContainer as a child, values such as ratioPercent, maxWidth, maxHeight of the slider are calculated and evaluated here.
-    if (this.configObject.maxWidth != null) {
-      this.boardWrapper.style.maxWidth = this.configObject.maxWidth;
+    if (this.config.get('maxWidth') != null) {
+      this.boardWrapper.style.maxWidth = this.config.get('maxWidth');
     }
 
     this.boardListContainerCalculateHeight();
 
-    this._boardListContainerCalculateHeight = this.boardListContainerCalculateHeight.bind(this);
-    window.addEventListener('resize', this._boardListContainerCalculateHeight);
+    this._boardListContainerCalculateHeight = this.boardListContainerCalculateHeight.bind(this); window.addEventListener('resize', this._boardListContainerCalculateHeight);
 
     // Generate boardlist
     this.boardList = document.createElement('ul');
@@ -97,25 +99,20 @@ class Slider {
     // Transition Events
     this.boardList.addEventListener('transitionstart', () => {
       this.boardListOnShift = true;
-    });
-    this.boardList.addEventListener('transitionend', () => {
+    }); this.boardList.addEventListener('transitionend', () => {
       this.boardListOnShift = null;
 
       this.transitionOff();
     });
 
     // touchstart
-    this._touchStart = this.touchStart.bind(this);
-    this.boardList.addEventListener('touchstart', this._touchStart, { passive: true });
+    this._touchStart = this.touchStart.bind(this); this.boardList.addEventListener('touchstart', this._touchStart, { passive: true });
 
     // touchmove
-    this._touchMove = this.touchMove.bind(this);
-    this.boardList.addEventListener('touchmove', this._touchMove, { passive: false });
+    this._touchMove = this.touchMove.bind(this); this.boardList.addEventListener('touchmove', this._touchMove, { passive: false });
 
     // touchend and touchcancel
-    this._touchStop = this.touchStop.bind(this);
-    this.boardList.addEventListener('touchend', this._touchStop, { passive: true });
-    this.boardList.addEventListener('touchcancel', this._touchStop, { passive: true });
+    this._touchStop = this.touchStop.bind(this); this.boardList.addEventListener('touchend', this._touchStop, { passive: true }); this.boardList.addEventListener('touchcancel', this._touchStop, { passive: true });
 
     // End of scroll change scrollIndex
     this.boardList.addEventListener('scroll', (event) => {
@@ -158,7 +155,7 @@ class Slider {
     }
 
     // Set start index
-    this.insertItem(this.configObject.startIndex, { behavior: 'instant', source: 'init' });
+    this.insertItem(this.config.get('startIndex'), { behavior: 'instant', source: 'init' });
 
     // Finally make the slider visible
     this.boardWrapper.style.visibility = null;
@@ -197,31 +194,31 @@ class Slider {
   }
 
   async initModules() {
-    this.modules = new Set();
-
-    if (!Array.isArray(this.configObject.module)) {
-      console.error('Module property must be array, modules could not load! \n Example: \n module: [`modulePath/moduleName`, `otherModulePath/otherModuleName`]');
-
+    if (!this.config.has('module')) {
       return;
     }
 
+    const moduleConfigValue = this.config.get('module');
+
+    let moduleConfigArray;
+    if (typeof moduleConfigValue === 'string' || moduleConfigValue instanceof String) {
+      moduleConfigArray = moduleConfigValue.split(',').map(s => s.trim());
+    } else {
+      moduleConfigArray = moduleConfigValue;
+    }
+
+    if (!Array.isArray(moduleConfigArray) || !moduleConfigArray.length) {
+      return;
+    }
+
+    this.modules = new Set();
+
     // Access to the modules then initialize
-    // Object.keys(this.configObject.module).forEach(key => {
-    for (const key of this.configObject.module) {
-      const splitedPath = key.split('/');
-
-      let _class;
-      // If path length bigger than 2 means path contains class name. So must get class name.
-      if (splitedPath.length > 1) {
-        // Pop last element of array, last element class name.
-        _class = splitedPath.pop();
-        // Uppercase first letter because of class names start with uppercase.
-        _class = `${_class[0].toUpperCase()}${_class.slice(1)}`;
-      }
-
+    // Object.keys(moduleConfigArray).forEach(key => {
+    for (const moduleName of moduleConfigArray) {
       try {
-        const exportedModule = await import(`../module/${splitedPath.join('/')}`);
-        const Module = _class != null ? exportedModule[_class] : exportedModule.default;
+        const exportedModule = await import(`../module/${moduleName}`);
+        const Module = exportedModule.default;
 
         const ModuleInstance = new Module(this);
         this.modules.add(ModuleInstance);
@@ -236,13 +233,13 @@ class Slider {
   }
 
   boardListContainerCalculateHeight() {
-    const ratioPercent = this.configObject.aspectRatio.split(':');
+    const ratioPercent = this.config.get('aspectRatio').split(':');
     const calculatedHeight = this.boardWrapper.offsetWidth / ratioPercent[0] * ratioPercent[1];
 
-    if (this.configObject.maxHeight == null || (this.boardListContainer.offsetHeight <= parseInt(this.configObject.maxHeight) && calculatedHeight <= parseInt(this.configObject.maxHeight))) {
+    if (this.config.get('maxHeight') == null || (this.boardListContainer.offsetHeight <= parseInt(this.config.get('maxHeight')) && calculatedHeight <= parseInt(this.config.get('maxHeight')))) {
       this.boardListContainer.style.paddingTop = `${100 / ratioPercent[0]}%`;
     } else {
-      this.boardListContainer.style.paddingTop = this.configObject.maxHeight;
+      this.boardListContainer.style.paddingTop = this.config.get('maxHeight');
     }
   }
 
@@ -255,13 +252,13 @@ class Slider {
   }
 
   insertItem(newIndex, { behavior = null, source = null } = {}) {
-    if (this.activeIndex > newIndex && newIndex < 0 && this.configObject.loop) {
+    if (this.activeIndex > newIndex && newIndex < 0 && this.config.get('loop')) {
       this.prevLoopMotion();
 
       return;
     }
 
-    if (this.activeIndex < newIndex && newIndex >= this.boardList.children.length && this.configObject.loop) {
+    if (this.activeIndex < newIndex && newIndex >= this.boardList.children.length && this.config.get('loop')) {
       this.nextLoopMotion();
 
       return;
@@ -328,7 +325,7 @@ class Slider {
     const targetIndex = this.activeIndex - 1;
 
     if (targetIndex < 0) {
-      if (this.configObject.loop) {
+      if (this.config.get('loop')) {
         this.prevLoopMotion();
 
         return;
@@ -350,7 +347,7 @@ class Slider {
     const targetIndex = this.activeIndex + 1;
 
     if (targetIndex >= this.boardList.children.length) {
-      if (this.configObject.loop) {
+      if (this.config.get('loop')) {
         this.nextLoopMotion();
 
         return;
@@ -462,7 +459,7 @@ class Slider {
       return;
     }
 
-    if (!this.configObject.loop) {
+    if (!this.config.get('loop')) {
       return;
     }
 
@@ -472,7 +469,7 @@ class Slider {
   touchStop(event) {
     this.boardListOnShift = null;
 
-    if (!this.configObject.loop) {
+    if (!this.config.get('loop')) {
       return;
     }
 

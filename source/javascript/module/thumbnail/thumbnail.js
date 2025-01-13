@@ -1,14 +1,31 @@
-import _config from '../../config';
-
 class Thumbnail {
-  constructor(sliderInstance, configUser, path) {
+  config = new Map();
+
+  constructor(sliderInstance) {
     this.sliderInstance = sliderInstance;
     this.activeIndex = null;
 
-    this.loadConfig(configUser, path);
+    // Get config from attributes
+    const nodeMap = this.sliderInstance.mainContainer.attributes;
+    for (let i = nodeMap.length - 1; i >= 0; i--) {
+      const attributeName = nodeMap[i].name;
 
-    if (this.configObject.id && document.getElementById(this.configObject.id)) {
-      this.thumbnailWrapper = document.getElementById(this.configObject.id);
+      if (attributeName.search('thumbnail-') !== -1) {
+        const configName = attributeName.split('thumbnail-').pop().split('-').map((value, index) => {
+          if (index > 0) {
+            return value[0].toUpperCase() + value.slice(1).toLowerCase();
+          }
+
+          return value;
+        }).join();
+
+        this.config.set(configName, nodeMap[i].value);
+      }
+    }
+
+    // External container
+    if (this.config.has('id') && document.getElementById(this.config.get('id'))) {
+      this.thumbnailWrapper = document.getElementById(this.config.get('id'));
 
       while (this.thumbnailWrapper.firstChild) {
         this.thumbnailWrapper.removeChild(this.thumbnailWrapper.lastChild);
@@ -17,16 +34,6 @@ class Thumbnail {
       this.thumbnailWrapper = document.createElement('div');
       this.sliderInstance.mainContainer.appendChild(this.thumbnailWrapper);
     }
-  }
-
-  loadConfig(configUser, path) {
-    this.configObject = { ..._config.module[path] };
-
-    Object.keys(this.configObject).forEach(key => {
-      if (Object.hasOwn(configUser, key)) {
-        this.configObject[key] = configUser[key];
-      }
-    });
   }
 
   append() {

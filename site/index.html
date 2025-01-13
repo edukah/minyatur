@@ -13,7 +13,7 @@
 		<div style="font-size: 32px; font-weight: bold; font-family: arial;">Minyatur - Slider</div>
 		<br>
 		<div>
-			<div id="slider-example">
+			<div id="slider-example" data-minyatur-thumbnail-type="dot">
 				<div>
 					<i data-src="assests/image/1.jpg"></i>
 					<i data-src="assests/image/6.jpg"></i>
@@ -30,13 +30,13 @@
 	<script type="text/javascript">
 		if (document.getElementById('slider-example')) {
 			const sliderOptions = {
-				id: 'slider-example',
+				id: ,
 				thumbnail: {
 					type: 'dot',
 				}
 			};
 
-			new Minyatur(sliderOptions);
+			new Minyatur(document.getElementById('slider-example'), sliderOptions);
 		}
 	</script>
 </body>

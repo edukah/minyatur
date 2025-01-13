@@ -17,7 +17,7 @@
         <span id="log"></span>
         <br>
         <div>
-            <div id="slider-example">
+            <div id="slider-example" data-minyatur-module="thumbnail,fullscreen,control">
                 <div>
                     <img src="image/1.jpg" data-message="Anan yanımda" />
                     <img src="image/6.jpg" />
@@ -38,7 +38,7 @@
         <span id="log2">s</span>
         <span id="log3">s</span>
         <div>
-            <div id="slider-example2">
+            <div id="slider-example2" data-minyatur-module="thumbnail,control" data-minyatur-loop="true" data-minyatur-module-thumbnail-type="slider">
                 <div>
                     <img src="image/1.jpg" data-message="Anan yanımda" />
                     <img src="image/6.jpg" />
@@ -58,7 +58,7 @@
         <br>
         <div style="height: 2000px; width: 100px;"></div>
         <div>
-            <div id="slider-example3">
+            <div id="slider-example3" data-minyatur-module="thumbnail,control,zoom" data-minyatur-module-thumbnail-type="basic">
                 <div>
                     <img src="image/1.jpg" data-message="Anan yanımda" />
                     <img src="image/6.jpg" />
@@ -77,51 +77,19 @@
     </div>
     <script type="text/javascript">
     if (document.getElementById('slider-example')) {
-        const sliderOptions = {
-            id: 'slider-example',
-            module: [
-                'thumbnail/basic',
-                'fullscreen',
-                'control',
-                // 'zoom',
-            ]
-        };
-
-        new Minyatur(sliderOptions);
+        new Minyatur(document.getElementById('slider-example'));
     }
 
     if (document.getElementById('slider-example2')) {
-        const sliderOptions = {
-            id: 'slider-example2',
-            loop: true,
-            module: [
-                'thumbnail/slider',
-                // 'fullscreen',
-                'control',
-                // 'zoom',
-            ]
-        };
-
-        new Minyatur(sliderOptions);
+        new Minyatur(document.getElementById('slider-example2'));
     }
 
     if (document.getElementById('slider-example3')) {
-        const sliderOptions = {
-            id: 'slider-example3',
-            module: [
-                'thumbnail/dot',
-                // 'fullscreen',
-                'control',
-                // 'mouse',
-                'zoom',
-            ]
-        };
-
-        var minya = new Minyatur(sliderOptions);
+        new Minyatur(document.getElementById('slider-example3'));
     }
     </script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-	<script>eruda.init();</script> -->
+    <script>eruda.init();</script> -->
 </body>
 
 </html>

@@ -1,19 +1,31 @@
-import _config from '../config';
-
 class Zoom {
-  constructor(sliderInstance, configUser) {
-    this.sliderInstance = sliderInstance;
-    this.configObject = { ..._config.module.zoom };
+  config = new Map();
 
-    Object.keys(this.configObject).forEach(key => {
-      if (Object.hasOwn(configUser, key)) {
-        this.configObject[key] = configUser[key];
-      }
-    });
+  constructor(sliderInstance) {
+    this.sliderInstance = sliderInstance;
 
     // this.container = document.createElement('div');
     // this.container.classList.add('minyatur-zoom-container');
 
+    // Get config from attributes
+    const nodeMap = this.sliderInstance.mainContainer.attributes;
+    for (let i = nodeMap.length - 1; i >= 0; i--) {
+      const attributeName = nodeMap[i].name;
+
+      if (attributeName.search('zoom-') !== -1) {
+        const configName = attributeName.split('zoom-').pop().split('-').map((value, index) => {
+          if (index > 0) {
+            return value[0].toUpperCase() + value.slice(1).toLowerCase();
+          }
+
+          return value;
+        }).join();
+
+        this.config.set(configName, nodeMap[i].value);
+      }
+    }
+
+    // Result Container
     this.resultContainer = document.createElement('div');
     this.resultContainer.classList.add('minyatur-zoom-result');
 
@@ -75,13 +87,12 @@ class Zoom {
       this.zoomOut();
     }
 
-    const imageRelativeToBoardWrapperX = (this.sliderInstance.boardWrapper.offsetWidth - this.getRenderedSize().width) / 2;
-    const imageRelativeToBoardWrapperY = (this.sliderInstance.boardWrapper.offsetHeight - this.getRenderedSize().height) / 2;
+    let imageRelativeToBoardWrapperX = (this.sliderInstance.boardWrapper.offsetWidth - this.getRenderedSize().width) / 2;
+    let imageRelativeToBoardWrapperY = (this.sliderInstance.boardWrapper.offsetHeight - this.getRenderedSize().height) / 2;
 
-    this.configObject.expandedZoom = true;
-    if (this.configObject.expandedZoom === true) {
-      // imageRelativeToBoardWrapperX = 0;
-      // imageRelativeToBoardWrapperY = 0;
+    if (this.config.has('expandedZoom') && this.config.get('expandedZoom') === true) {
+      imageRelativeToBoardWrapperX = 0;
+      imageRelativeToBoardWrapperY = 0;
     }
 
     // Get the cursor x and y positions:

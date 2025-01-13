@@ -14,8 +14,8 @@ class Message {
     this.boardListItemMessageWrapper = document.createElement('div');
     this.boardListItemMessageWrapper.classList.add('minyatur-on-image-message-wrapper');
 
-    if (this.sliderInstance.configObject.contentWidthLimit) {
-      this.boardListItemMessageWrapper.style.maxWidth = this.sliderInstance.configObject.contentWidthLimit;
+    if (this.sliderInstance.config.has('contentWidthLimit')) {
+      this.boardListItemMessageWrapper.style.maxWidth = this.sliderInstance.config.get('contentWidthLimit');
     }
 
     this.boardListItemMessageContainer = document.createElement('div');
