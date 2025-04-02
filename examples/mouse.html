@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minyatur Example – Mouse Module</title>
+  <link rel="stylesheet" type="text/css" href="../dist/minyatur.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="assets/font-awesome-6/css/all.min.css">
+  <script type="text/javascript" src="../dist/minyatur.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Minyatur – Mouse Module</h1>
+    <p>The slider supports touch gestures by default. This example demonstrates the <code>mouse</code> module, which adds support for mouse-based dragging. Try dragging one of the slides with your mouse.</p>
+
+    <div class="slider-section">
+      <div id="slider-mouse" data-minyatur-module="mouse">
+        <div>
+          <img src="assets/image/bird.png" alt="Bird">
+          <img src="assets/image/cat.png" alt="Cat">
+          <img src="assets/image/dog.png" alt="Dog">
+          <img src="assets/image/fish.png" alt="Fish">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    new Minyatur({ target: document.getElementById('slider-mouse') });
+  </script>
+</body>
+</html>
