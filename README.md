@@ -15,6 +15,7 @@ Minyatur is a modern, modular, and lightweight slider component built for web pr
 - 🧠 Smart configuration via HTML `data-*` attributes or JS config
 - 🧩 Plug-and-play module system
 - 🎯 Minimal dependencies and high compatibility
+- 🔍 Interactive Help (Minyatur.manual())
 
 ---
 
