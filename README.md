@@ -1,6 +1,11 @@
 # 📸 Minyatur Slider
 
-Minyatur is a modern, modular, and lightweight slider component built for web projects. It supports both HTML attribute and JavaScript configuration methods, and includes optional modules for full customization.
+[![GitHub](https://img.shields.io/badge/View_on_GitHub-blue?logo=github)](https://github.com/edukah/minyatur)
+[![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+Lightweight, modular slider 🧩 with HTML-based config, responsive support 📱 and smart features like zoom 🔎 & fullscreen 🖥️.
+
+Minyatur is a modern, modular, and lightweight slider component built for web projects. It supports both HTML attribute and JavaScript configuration methods, and includes optional modules.
 
 ---
 
@@ -17,9 +22,18 @@ Minyatur is a modern, modular, and lightweight slider component built for web pr
 
 > **Note:** The `target` parameter is required and must be a valid DOM element or selector. All other options are optional.
 
+### Include in your HTML `<head>`
+
+Make sure to include the stylesheet and the script:
+
+```html
+<head>
+  <link rel="stylesheet" href="dist/minyatur.min.css" />
+  <script type="text/javascript" src="dist/minyatur.min.js"></script>
+</head>
+```
+
 ### Understanding HTML Structure
-     data-minyatur-loop="true"
-     data-minyatur-language-code="en"
 
 Minyatur also allows configuring behavior using `data-*` attributes directly in HTML. This is ideal for simple use-cases without writing JavaScript.
 
