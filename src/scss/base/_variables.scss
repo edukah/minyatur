@@ -1,0 +1,53 @@
+$breakpoint-md: 667px;
+
+.minyatur {
+	// Base colors (Sadrazam-compatible naming)
+	--color-white--f: rgba(255, 255, 255, 1);
+	--color-grey-200: rgba(235, 235, 235, 1);
+	--color-grey-400: rgba(204, 204, 204, 1);
+	--color-grey-900: rgba(35, 35, 37, 1);
+	--color-text-dark-1--f: rgba(23, 23, 23, 1);
+	--backdrop-background: rgba(25, 25, 25, 0.4);
+
+	// Theme colors
+	--color-primary-light: rgba(218, 215, 205, 1);
+	--color-primary-base: rgba(88, 129, 87, 1);
+	--color-primary-dark: rgba(52, 78, 65, 1);
+
+	--color-secondary-light: rgba(182, 173, 144, 1);
+	--color-secondary-base: rgba(147, 102, 57, 1);
+	--color-secondary-dark: rgba(88, 47, 14, 1);
+
+	// Component tokens
+	--color-image-background-color: var(--color-grey-900);
+	--color-zoom-lens: rgba(19, 28, 209, 0.4);
+	--color-fullscreen-backdrop: rgba(15, 15, 15, 0.94);
+	--color-fullscreen-close-bg: rgba(40, 40, 40, 0.6);
+
+	--color-thumbnail-inactive: var(--color-grey-400);
+	--color-thumbnail-hover: var(--color-secondary-light);
+	--color-thumbnail-active: var(--color-primary-base);
+
+	--color-arrow-inactive: var(--color-grey-400);
+	--color-arrow-active: var(--color-grey-200);
+}
+
+body.dark-mode .minyatur {
+	--color-primary-light: rgba(52, 78, 65, 1);
+	--color-primary-base: rgba(88, 129, 87, 1);
+	--color-primary-dark: rgba(218, 215, 205, 1);
+
+	--color-secondary-light: rgba(88, 47, 14, 1);
+	--color-secondary-base: rgba(147, 102, 57, 1);
+	--color-secondary-dark: rgba(182, 173, 144, 1);
+
+	--color-image-background-color: var(--color-grey-900);
+	--color-zoom-lens: rgba(19, 28, 209, 0.4);
+
+	--color-thumbnail-inactive: var(--color-grey-400);
+	--color-thumbnail-hover: var(--color-secondary-dark);
+	--color-thumbnail-active: var(--color-primary-base);
+
+	--color-arrow-inactive: rgba(25, 25, 25, 0.8);
+	--color-arrow-active: var(--backdrop-background);
+}

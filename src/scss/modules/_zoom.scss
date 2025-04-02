@@ -1,0 +1,25 @@
+.minyatur-zoom__lens {
+  position: absolute;
+  visibility: hidden;
+  /*set the size of the lens:*/
+  /* width: 200px;
+    height: 100px; */
+  top: 0;
+  left: 0;
+  background-color: var(--color-zoom-lens);
+  z-index: 9;
+}
+
+.minyatur-zoom__result {
+  position: absolute;
+  border: 1px solid var(--color-grey-400);
+  visibility: hidden;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: var(--color-image-background-color);
+  box-sizing: border-box;
+  /*set the size of the result div:*/
+
+  z-index: 999;
+}

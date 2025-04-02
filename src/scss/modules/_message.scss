@@ -1,0 +1,25 @@
+@use '../base/variables';
+
+.minyatur-message__overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 50%;
+
+  .minyatur-message__container {
+    position: absolute;
+    bottom: 3vmin;
+    left: 3vmin;
+    background-color: var(--color-white--f);
+    color: var(--color-text-dark-1--f);
+    border-radius: var(--radius-sm, 4px);
+    font-size: 3vmin;
+    font-weight: 600;
+    padding: 0.5vmin 1vmin;
+
+    @media only screen and (max-width: variables.$breakpoint-md) {
+      left: 10px;
+    }
+  }
+}

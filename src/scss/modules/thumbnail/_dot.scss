@@ -1,0 +1,53 @@
+.minyatur-thumbnail__dot {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 12px;
+    padding: 12px 0 4px;
+    margin: 0;
+  }
+
+  li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background-color: var(--color-thumbnail-inactive);
+    background-clip: content-box;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: content-box;
+
+    // Fixes mysterious 1px lines (ghost borders) that sometimes appear
+    // at specific height values or fractional pixel positions on certain devices,
+    // especially mobile browsers with high DPI and subpixel rendering quirks.
+    //
+    // Applying `transform: translateZ(0)` forces the browser to create a new composite layer.
+    // This isolates the element's rendering and eliminates visual artifacts
+    // caused by GPU compositing issues.
+    transform: translateZ(0);
+
+    &.is-active {
+      border-color: var(--color-thumbnail-active);
+      background-color: var(--color-thumbnail-active);
+      background-clip: border-box;
+      opacity: 1;
+
+      &:hover {
+        background-color: var(--color-thumbnail-active);
+      }
+    }
+
+    &:hover {
+      opacity: 0.8;
+      transform: translateZ(0) scale(1.2);
+    }
+  }
+}

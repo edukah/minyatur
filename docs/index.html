@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minyatur Example – Combined Modules</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <!-- --- -->
+    <script type="text/javascript" src="assets/minyatur.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/minyatur.min.css">
+</head>
+
+<body>
+<script>if(sessionStorage.getItem("dark-mode"))document.body.classList.add("dark-mode")</script>
+    <header>
+        <!-- Navigation Header -->
+        <nav class="top-navbar">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="openPopup(); return false;">Examples</a>
+                        <div class="navi-popup-overlay" id="examplesPopupOverlay"></div>
+                        <div class="navi-popup" id="examplesPopup">
+                            <h3>Examples</h3>
+                            <ul>
+                                <li><a href="aspect_ratio.html">Aspect Ratio</a></li>
+                                <li><a href="all.html">All Modules</a></li>
+                                <li><a href="buttons.html">Buttons</a></li>
+                                <li><a href="fullscreen.html">Fullscreen</a></li>
+                                <li><a href="message.html">Message</a></li>
+                                <li><a href="mouse.html">Mouse</a></li>
+                                <li><a href="thumbnails.html">Thumbnails</a></li>
+                                <li><a href="zoom.html">Zoom</a></li>
+                            </ul>
+                            <button class="close-popup" onclick="closePopup()">✕</button>
+                        </div>
+                    </li>
+                    <li><a href="https://github.com/edukah/minyatur" target="_blank">GitHub</a></li>
+                </ul>
+                <div class="dark-mode-button-container">
+                    <div class="mode-toggle-switch" onclick="toggleMode()"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="content-container">
+            <div class="content-header">
+                <h1>Minyatur – Combined Example Index</h1>
+                <p>This page showcases two full-featured sliders using multiple modules and configuration techniques.
+                </p>
+            </div>
+            <div class="content">
+                <h2>Slider 1: Configured via Data Attributes</h2>
+                <p>Modules: <code>fullscreen</code>, <code>control</code>, <code>thumbnail (dot)</code>,
+                    <code>message</code>
+                </p>
+                <div id="slider-combo-1" data-minyatur-module="fullscreen,control,thumbnail,message"
+                    data-minyatur-thumbnail-type="dot">
+                    <div>
+                        <img src="assets/image/bird.png" alt="Bird" data-message="Dot Navigation - Bird">
+                        <img src="assets/image/cat.png" alt="Cat" data-message="Dot Navigation - Cat">
+                        <img src="assets/image/dog.png" alt="Dog" data-message="Dot Navigation - Dog">
+                        <img src="assets/image/fish.png" alt="Fish" data-message="Dot Navigation - Fish">
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <h2>Slider 2: Configured via JavaScript</h2>
+                <p>Modules: <code>control</code>, <code>thumbnail (slider)</code>, <code>mouse drag</code></p>
+                <div id="slider-combo-2">
+                    <div>
+                        <img src="assets/image/hamster.png" alt="Hamster">
+                        <img src="assets/image/uni.png" alt="Unicorn">
+                        <img src="assets/image/cat.png" alt="Cat">
+                        <img src="assets/image/fish.png" alt="Fish">
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <h2>Slider 3: Responsive Aspect Ratio Example</h2>
+                <p>
+                    This slider demonstrates the <strong>Responsive Aspect Ratio</strong> system.
+                </p>
+                <div id="slider-dsl-3" data-minyatur-module="fullscreen,control,thumbnail,message"
+                    data-minyatur-thumbnail-type="slider" data-minyatur-aspect-ratio="1:1<750,750<16:9">
+                    <div>
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/cat_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/cat.png">
+                            <img src="assets/image/cat.png" alt="Cat" data-message="Responsive Aspect - Cat">
+                        </picture>
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/hamster_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/hamster.png">
+                            <img src="assets/image/hamster.png" alt="Hamster"
+                                data-message="Responsive Aspect - Hamster">
+                        </picture>
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/dog_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/dog.png">
+                            <img src="assets/image/dog.png" alt="Dog" data-message="Responsive Aspect - Dog">
+                        </picture>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Minyatur Slider &copy; <span id="currentYear"></span> | MIT License</p>
+    </footer>
+    <script type="text/javascript">
+        // Initialize data-configured slider
+        new Minyatur({ target: document.getElementById('slider-combo-1') });
+
+        // Initialize JS-configured slider
+        new Minyatur({
+            target: document.getElementById('slider-combo-2'),
+            module: ['control', 'thumbnail', 'mouse'],
+            thumbnail: {
+                type: 'slider'
+            }
+        });
+
+        // Initialize DSL aspect ratio slider
+        new Minyatur({ target: document.getElementById('slider-dsl-3') });
+    </script>
+</body>
+
+</html>
