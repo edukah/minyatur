@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minyatur Example – Zoom Module</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/font-awesome-6/css/all.min.css">
+    <!-- --- -->
+    <script type="text/javascript" src="assets/minyatur.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/minyatur.min.css">
+</head>
+
+<body>
+    <header>
+        <!-- Navigation Header -->
+        <nav class="top-navbar">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="openPopup(); return false;">Examples</a>
+                        <!-- Navbar içinde (nav-links'ten sonra) bu div'i ekleyin -->
+                        <div class="navi-popup-overlay" id="examplesPopupOverlay"></div>
+                        <div class="navi-popup" id="examplesPopup">
+                            <h3>Examples</h3>
+                            <ul>
+                                <li><a href="all.html">All</li>
+                                <li><a href="buttons.html">Buttons</a></li>
+                                <li><a href="fullscreen.html">Fullscreen</a></li>
+                                <li><a href="message.html">Message</a></li>
+                                <li><a href="mouse.html">Mouse</a></li>
+                                <li><a href="thumbnails.html">Thumbnails</a></li>
+                                <li><a href="zoom.html">Zoom</a></li>
+                            </ul>
+                            <button class="close-popup" onclick="closePopup()">✕</button>
+                        </div>
+                    </li>
+                    <li><a href="https://github.com/edukah/minyatur" target="_blank">GitHub</a></li>
+                </ul>
+                <div class="dark-mode-button-container">
+                    <div class="mode-toggle-switch" onclick="toggleMode()"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="content-container">
+            <h1>Minyatur – Zoom Module</h1>
+            <p>This example demonstrates the <code>zoom</code> module which enables an inner zoom effect on hover. Move your cursor over an image to zoom in, and move away to zoom out.</p>
+            <div class="slider-section">
+                <div id="slider-zoom" data-minyatur-module="zoom">
+                    <div>
+                        <img src="assets/image/bird.png" alt="Bird">
+                        <img src="assets/image/cat.png" alt="Cat">
+                        <img src="assets/image/dog.png" alt="Dog">
+                        <img src="assets/image/fish.png" alt="Fish">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Minyatur Slider &copy; <span id="currentYear"></span> | MIT License</p>
+    </footer>
+    <script type="text/javascript">
+        new Minyatur({ target: document.getElementById('slider-zoom') });
+    </script>
+</body>
+
+</html>

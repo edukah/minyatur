@@ -2,7 +2,7 @@ import Module from '../../core/module.js';
 
 class Div extends Module {
   constructor (sliderInstance, mainWrapper) {
-     super(sliderInstance, 'fullscreen');
+    super(sliderInstance, 'fullscreen');
   }
 
   init () {

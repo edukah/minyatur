@@ -20,12 +20,12 @@ class Slider {
     this.mainContainer.classList.add('minyatur');
     this.mainContainer.__minyatur = this;
 
-        // Load default configuration
+    // Load default configuration
     Object.entries(DEFAULTS).forEach(([key, value]) => {
       this.config.set(key, value);
     });
 
-        // Override from HTML attributes
+    // Override from HTML attributes
     this.config.forEach((_, key) => {
       const attr = `data-minyatur-${key.replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, '-$1').toLowerCase()}`;
       if (this.mainContainer.hasAttribute(attr)) {
@@ -33,18 +33,18 @@ class Slider {
       }
     });
 
-        // Override from user config
+    // Override from user config
     Object.entries(params).forEach(([key, value]) => {
       if (value != null) {
         this.config.set(key, value);
       }
     });
 
-        // Load language
+    // Load language
     Language.load(this.config.get('languageCode'));
     this.language = Language;
 
-        // Auto-inject default style if needed
+    // Auto-inject default style if needed
     if (this.config.get('styleAutoload')) {
       if (!document.querySelector('.minyatur-default-style') && !document.querySelector('link[href*="minyatur.css"]')) {
         const styleElement = document.createElement('style');
@@ -55,33 +55,34 @@ class Slider {
       }
     }
 
-        // Use user-defined items or fallback to DOM children
+    // Use user-defined items or fallback to DOM children
     this.userDefinedItems = params.items?.length ? params.items : [...this.mainContainer.firstElementChild.children || []];
 
     if (!this.userDefinedItems.length) {
       this.printItemErrorMessage();
+      
       return;
     }
 
-        // Empty the main container
+    // Empty the main container
     while (this.mainContainer.firstChild) {
       this.mainContainer.removeChild(this.mainContainer.lastChild);
     }
 
-        // BroadWrapper, holder for slider items
+    // BroadWrapper, holder for slider items
     this.boardWrapper = document.createElement('div');
     this.boardWrapper.classList.add('minyatur-board');
     this.boardWrapper.style.visibility = 'hidden';
     this.mainContainer.appendChild(this.boardWrapper);
 
-        // AspectRatio and width and height related settings.
+    // AspectRatio and width and height related settings.
     this.boardListContainer = document.createElement('div');
     this.boardListContainer.classList.add('minyatur-board-list-container');
     this.boardListContainer.style.overflow = 'hidden';
     this.boardListContainer.style.height = '0';
     this.boardWrapper.appendChild(this.boardListContainer);
 
-        // Since the measurement properties return values after adding the BoardContainer as a child, values such as ratioPercent, maxWidth, maxHeight of the slider are calculated and evaluated here.
+    // Since the measurement properties return values after adding the BoardContainer as a child, values such as ratioPercent, maxWidth, maxHeight of the slider are calculated and evaluated here.
     if (this.config.get('maxWidth') != null) {
       this.boardWrapper.style.maxWidth = this.config.get('maxWidth');
     }
@@ -91,10 +92,10 @@ class Slider {
     this._boardListContainerCalculateHeight = this.boardListContainerCalculateHeight.bind(this);
     window.addEventListener('resize', this._boardListContainerCalculateHeight);
 
-        // Generate boardlist
+    // Generate boardlist
     this.boardList = document.createElement('ul');
 
-        // Transition Events
+    // Transition Events
     this.boardList.addEventListener('transitionstart', () => {
       this.boardListOnShift = true;
     });
@@ -104,20 +105,20 @@ class Slider {
       this.transitionOff();
     });
 
-        // touchstart
+    // touchstart
     this._touchStart = this.touchStart.bind(this);
     this.boardList.addEventListener('touchstart', this._touchStart, { passive: true });
 
-        // touchmove
+    // touchmove
     this._touchMove = this.touchMove.bind(this);
     this.boardList.addEventListener('touchmove', this._touchMove, { passive: false });
 
-        // touchend and touchcancel
+    // touchend and touchcancel
     this._touchStop = this.touchStop.bind(this);
     this.boardList.addEventListener('touchend', this._touchStop, { passive: true });
     this.boardList.addEventListener('touchcancel', this._touchStop, { passive: true });
 
-        // End of scroll change scrollIndex
+    // End of scroll change scrollIndex
     this.boardList.addEventListener('scroll', () => {
       if (this.scrollEndTimer) {
         window.clearTimeout(this.scrollEndTimer);
@@ -157,11 +158,11 @@ class Slider {
       return;
     }
 
-        // DOM tamamen yerleştirildikten sonra aktif sınıfı ekle
+    // DOM tamamen yerleştirildikten sonra aktif sınıfı ekle
     window.requestAnimationFrame(() => {
       this.insertItem(this.config.get('startIndex') - 1, { behavior: 'instant', source: 'init' });
 
-            // Finally make the slider visible
+      // Finally make the slider visible
       this.boardWrapper.style.visibility = null;
     });
   }
@@ -217,8 +218,8 @@ class Slider {
 
     this.modules = new Set();
 
-        // Access to the modules then initialize
-        // Object.keys(moduleConfigArray).forEach(key => {
+    // Access to the modules then initialize
+    // Object.keys(moduleConfigArray).forEach(key => {
     for (const moduleName of moduleConfigArray) {
       try {
         const exportedModule = await import(`../module/${moduleName}.js`);
@@ -270,7 +271,7 @@ class Slider {
       return;
     }
 
-        // Index
+    // Index
     if (newIndex < 0) {
       newIndex = 0;
     }
@@ -279,15 +280,15 @@ class Slider {
       newIndex = this.boardList.children.length - 1;
     }
 
-        // module hide;
+    // module hide;
     this.triggerModuleHide(this.activeIndex);
 
     this.activeIndex = newIndex;
 
-        // module show
+    // module show
     this.triggerModuleInit(this.activeIndex);
 
-        // Scroll
+    // Scroll
     const scrollAbsoluteX = this.boardList.firstElementChild.offsetWidth * this.activeIndex;
 
     if (!['smooth', 'instant', 'auto'].includes(behavior)) {
@@ -300,26 +301,26 @@ class Slider {
       behavior
     };
 
-        // If there is a difference, move it
+    // If there is a difference, move it
     if (this.boardList.scrollLeft !== scrollAbsoluteX) {
       this.boardList.scrollTo(scrollOptions);
     }
   }
 
   triggerModuleHide (_index) {
-        // Hide method, oldIndex element
+    // Hide method, oldIndex element
     this.sliderItems.get(this.activeIndex).instance.hide();
   }
 
   triggerModuleInit (newIndex) {
-        // Pass newIndex to the modules
+    // Pass newIndex to the modules
     this.modules.forEach(v => {
       if (v.insertItem != null) {
         v.insertItem(newIndex);
       }
     });
 
-        // Show method, newIndex element
+    // Show method, newIndex element
     this.sliderItems.get(newIndex).instance.show();
   }
 
@@ -506,8 +507,8 @@ class Slider {
       return window.matchMedia(query).matches;
     };
 
-        // include the 'heartz' as a way to have a non matching MQ to help terminate the join
-        // https://git.io/vznFH
+    // include the 'heartz' as a way to have a non matching MQ to help terminate the join
+    // https://git.io/vznFH
     const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
     mq(query);
   }
@@ -530,7 +531,7 @@ class Slider {
       '\t</div>',
       '\n',
       '</div>'
-      );
+    );
   }
 
   static manual () {
@@ -565,11 +566,11 @@ class Slider {
            `- Use data-minyatur-* or JS config depending on your setup.\n\n`, []],
 
       ['%c============================================================%c\n', ['color: #6c5ce7;', '']]
-      ];
+    ];
 
-      const message = lines.map(([text]) => text).join('');
-      const styles = lines.flatMap(([_, styles = []]) => styles);
-      console.log(message, ...styles);
+    const message = lines.map(([text]) => text).join('');
+    const styles = lines.flatMap(([_, styles = []]) => styles);
+    console.log(message, ...styles);
   }
 }
 

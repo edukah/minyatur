@@ -2,6 +2,7 @@
 
 [![GitHub](https://img.shields.io/badge/View_on_GitHub-blue?logo=github)](https://github.com/edukah/minyatur)
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Demo-View%20Live-orange?logo=google-chrome)](https://edukah.github.io/minyatur/)
 
 Lightweight, modular slider 🧩 with HTML-based config, responsive support 📱 and smart features like zoom 🔎 & fullscreen 🖥️.
 
@@ -15,7 +16,8 @@ Minyatur is a modern, modular, and lightweight slider component built for web pr
 - 🧠 Smart configuration via HTML `data-*` attributes or JS config
 - 🧩 Plug-and-play module system
 - 🎯 Minimal dependencies and high compatibility
-- 🔍 Interactive Help (`Kaysa.manual()`)
+- 🔍 Interactive Help (`Minyatur.manual()`)
+- 🌓 **Dark/Light Mode Support** (via CSS class)
 
 ---
 
@@ -50,6 +52,16 @@ Minyatur also allows configuring behavior using `data-*` attributes directly in 
   <img src="2.jpg" data-message="Second image" />
   <img src="3.jpg" data-message="Third image" />
 </div>
+```
+
+### Dark Mode Integration
+
+Add `.dark-mode` class to `<body>` to activate dark theme:
+
+```html
+<body class="dark-mode">
+  <div class="slider">...</div>
+</body>
 ```
 
 ### Method 1: JavaScript Initialization

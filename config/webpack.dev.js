@@ -1,6 +1,7 @@
 // webpack.dev.js (cleaned up ESM version)
 
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { merge } from 'webpack-merge';
 import common from './webpack.common.js';
@@ -9,9 +10,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const entry = {
-  'minyatur.dev.js': path.join(common.context, 'src/js/index.js'),
-  'minyatur.dev.junk': path.join(common.context, 'src/scss/main.scss')
+  'build.dev.js': path.join(common.context, 'src/js/index.js'),
+  'build.dev.junk': path.join(common.context, 'src/scss/main.scss')
 };
+
+// mkcert files
+const certPath = '/etc/ssl/localcerts/minyatur.test.pem';
+const keyPath = '/etc/ssl/localcerts/minyatur.test-key.pem';
+let devServerOptions = {};
+if(fs.existsSync(certPath) && fs.existsSync(keyPath)){
+  devServerOptions = {
+    cert: fs.readFileSync(certPath),
+    key: fs.readFileSync(keyPath)
+  };
+}
 
 export default merge(common, {
   mode: 'development',
@@ -19,35 +31,39 @@ export default merge(common, {
   output: {
     filename: '[name]',
     path: path.join(common.context, 'dev'),
-    chunkFormat: false,
     library: {
-      name: 'Minyatur',
+      name: 'minyatur',
       type: 'umd',
       export: 'default'
     },
     globalObject: 'this'
   },
   devServer: {
-    devMiddleware: {
-      publicPath: '/instant-compiled-folder'
-    },
-    watchFiles: [path.join(common.context, 'src')],
     headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-    hot: true,
-    compress: true,
-    open: {
-      target: ['https://localhost:9009'],
-      app: { name: 'google-chrome' }
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+    },    
+    server: {
+      type: 'https',
+      options: devServerOptions
     },
     host: '0.0.0.0',
-    port: 9009,
-    server: 'https',
-    webSocketServer: 'sockjs',
+    allowedHosts: ['minyatur.test', 'localhost', '127.0.0.1'],
+    port: 9005,
+    devMiddleware: {
+      publicPath: '/_hot/'
+    },
+    open: {
+      target: ['https://minyatur.test:9005'],
+      app: { name: 'google-chrome' }
+    },
+    watchFiles: [path.join(common.context, 'src')],
+    hot: true,
+    compress: true,
     static: [
       { directory: path.join(common.context, 'dev') },
-      { directory: path.join(common.context, 'examples') }
+      { directory: path.join(common.context, 'docs') }
     ],
     client: {
       overlay: {
