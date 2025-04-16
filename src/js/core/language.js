@@ -4,15 +4,15 @@ class Language {
 
   static async load (languageCode) {
     try {
-      const module = await import(`../language/${languageCode}.js`);
-      this.setAll(module.default);
-    } catch (e) {
-      try {
-        const fallbackModule = await import(`../language/${this.defaultLanguageCode}.js`);
-        this.setAll(fallbackModule.default);
-      } catch (e) {
-        console.error("Failed to load both the selected and fallback language modules.");
-      }
+      const importModule = await import(`../language/${languageCode}.js`);
+      const importDefaultObject = importModule.default;
+
+      this.setAll(importDefaultObject);
+    } catch {
+      const importModule = await import(`../language/${this.defaultLanguageCode}.js`);
+      const importDefaultObject = importModule.default;
+
+      this.setAll(importDefaultObject);
     }
   }
 
