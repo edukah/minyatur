@@ -6,13 +6,13 @@ class Slider {
   sliderItems = new Map();
   config = new Map();
 
-  constructor (params = {}) {
+  constructor (targetOrConfig = {}) {
     this.activeIndex = 0;
     this.boardListOnShift = null;
 
-    if (!params.target) throw new Error('Minyatur: `target` parameter is required.');
+    if (!targetOrConfig.target) throw new Error('Minyatur: `target` parameter is required.');
 
-    this.mainContainer = typeof params.target === 'string' ? document.querySelector(params.target) : params.target;
+    this.mainContainer = typeof targetOrConfig.target === 'string' ? document.querySelector(targetOrConfig.target) : targetOrConfig.target;
     if (!(this.mainContainer instanceof window.HTMLElement)) {
       throw new Error('Minyatur: Please provide a valid DOM element or selector.');
     }
@@ -20,25 +20,7 @@ class Slider {
     this.mainContainer.classList.add('minyatur');
     this.mainContainer.__minyatur = this;
 
-    // Load default configuration
-    Object.entries(DEFAULTS).forEach(([key, value]) => {
-      this.config.set(key, value);
-    });
-
-    // Override from HTML attributes
-    this.config.forEach((_, key) => {
-      const attr = `data-minyatur-${key.replace(/((?<=[a-z\d])[A-Z]|(?<=[A-Z\d])[A-Z](?=[a-z]))/g, '-$1').toLowerCase()}`;
-      if (this.mainContainer.hasAttribute(attr)) {
-        this.config.set(key, this.mainContainer.getAttribute(attr));
-      }
-    });
-
-    // Override from user config
-    Object.entries(params).forEach(([key, value]) => {
-      if (value != null) {
-        this.config.set(key, value);
-      }
-    });
+    this.mergeConfig(targetOrConfig);
 
     // Load language
     Language.load(this.config.get('languageCode'));
@@ -56,7 +38,7 @@ class Slider {
     }
 
     // Use user-defined items or fallback to DOM children
-    this.userDefinedItems = params.items?.length ? params.items : [...this.mainContainer.firstElementChild.children || []];
+    this.userDefinedItems = targetOrConfig.items?.length ? targetOrConfig.items : [...this.mainContainer.firstElementChild.children || []];
 
     if (!this.userDefinedItems.length) {
       this.printItemErrorMessage();
@@ -148,6 +130,23 @@ class Slider {
     };
   }
 
+  mergeConfig (customConfig) {
+  // data-attributes → config keys
+    const configFromAttributes = {};
+
+    Object.entries(this.mainContainer.dataset).forEach(([key, value]) => {
+      const rawKey = key.replace('minyatur', '');
+      const keyToConfig = rawKey.charAt(0).toLowerCase() + rawKey.slice(1);
+      configFromAttributes[keyToConfig] = value;
+    });
+
+    [DEFAULTS, customConfig, configFromAttributes].forEach(source => {
+      Object.entries(source).forEach(([key, value]) => {
+        this.config.set(key, value);
+      });
+    });
+  }
+
   async init () {
     await this.initItems();
     await this.initModules();
@@ -182,7 +181,7 @@ class Slider {
         boardListItem.appendChild(item);
 
         if (item.getAttribute('data-message')) {
-          const MessageModule = await import('../module/message.js');
+          const MessageModule = await import('../modules/message.js');
           const MessageClass = MessageModule.default;
 
           const messageInstance = new MessageClass(this);
@@ -222,7 +221,7 @@ class Slider {
     // Object.keys(moduleConfigArray).forEach(key => {
     for (const moduleName of moduleConfigArray) {
       try {
-        const exportedModule = await import(`../module/${moduleName}.js`);
+        const exportedModule = await import(`../modules/${moduleName}.js`);
         const Module = exportedModule.default;
 
         const ModuleInstance = new Module(this);
@@ -240,8 +239,6 @@ class Slider {
   boardListContainerCalculateHeight () {
     const ratioPercent = this.config.get('aspectRatio').split(':');
     const calculatedHeight = (this.boardWrapper.offsetWidth / ratioPercent[0]) * ratioPercent[1];
-
-    console.log(ratioPercent);
 
     if (this.config.get('maxHeight') == null || (this.boardListContainer.offsetHeight <= parseInt(this.config.get('maxHeight')) && calculatedHeight <= parseInt(this.config.get('maxHeight')))) {
       this.boardListContainer.style.paddingTop = `${100 / (ratioPercent[0] / ratioPercent[1])}%`;

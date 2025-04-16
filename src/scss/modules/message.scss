@@ -1,0 +1,24 @@
+@use "../base/variables";
+
+.minyatur-message-overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 50%;
+
+  .minyatur-message-container {
+    position: absolute;
+    bottom: 3vmin;
+    left: 3vmin;
+    background-color: white;
+    border-radius: 3px;
+    font-size: 3vmin;
+    font-weight: 600;
+    padding: 0.5vmin 1vmin;
+
+    @media only screen and (max-width: variables.$responsive-breakpoint-level-1) {
+      left: 10px;
+    }
+  }
+}
