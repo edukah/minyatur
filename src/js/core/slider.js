@@ -1,5 +1,6 @@
 import DEFAULTS from '../config.js';
 import Language from './language.js';
+import manualData from './manual.json';
 import defaultStyle from '!!css-loader?{"sourceMap":false,"exportType":"string"}!sass-loader?{"api":"modern"}!../../scss/main.scss';
 
 class Slider {
@@ -531,43 +532,19 @@ class Slider {
     );
   }
 
+  /**
+   * Static method to display documentation in the console.
+   */
   static manual () {
-    const lines = [
-      ['%c====================  Minyatur Slider Manual  ====================%c\n\n', ['color: #6c5ce7; font-weight: bold;', '']],
+    // Automatically add '\n' to each line
+    const lines = manualData.map(({ text, style }) => [`%c${text}\n`, style]);
 
-      ['%cHow to initialize (JS):%c\n', ['color: #00b894; font-weight: bold;', '']],
-      [`new Minyatur({\n  target: '#slider',\n  loop: true,\n  languageCode: 'en',\n  aspectRatio: '16:9',\n  module: ['thumbnail', 'fullscreen', 'message', 'control', 'mouse', 'zoom'],\n  thumbnail: {\n    type: 'slider',\n    id: 'thumbs'\n  },\n  zoom: {\n    expandedZoom: true\n  }\n});\n\n`, []],
+    // Separate texts and styles
+    const messages = lines.map(([text]) => text); // Texts
+    const styles = lines.flatMap(([_, style]) => style || ''); // Styles
 
-      ['%cHow to configure via HTML:%c\n', ['color: #00b894; font-weight: bold;', '']],
-      [`<div id="slider"\n     data-minyatur-aspect-ratio="16:9"\n     data-minyatur-module="thumbnail,fullscreen,message,zoom"\n     data-minyatur-thumbnail-type="slider"\n     data-thumbnail-id="thumbs">\n  <img src="1.jpg" data-message="First image" />\n  <img src="2.jpg" data-message="Second image" />\n</div>\n\n`, []],
-
-      ['%cAvailable Config Keys:%c\n', ['color: #00cec9; font-weight: bold;', '']],
-      [`aspectRatio         string          Slider display ratio (e.g. 16:9)\n` +
-       `maxWidth            string|null     Max width of container\n` +
-       `maxHeight           string|null     Max height of container\n` +
-       `contentWidthLimit   string          Button container limit\n` +
-       `loop                boolean         Enables circular sliding\n` +
-       `startIndex          number          Initial index (1-based)\n` +
-       `styleAutoload       boolean         Load default CSS\n` +
-       `languageCode        string          Language key (e.g. en, tr)\n` +
-       `module              string[]        List of modules to activate\n\n`, []],
-
-      ['%cModule-Specific Options:%c\n', ['color: #e17055; font-weight: bold;', '']],
-      [`thumbnail.type       string          dot | slider | basic\n` +
-         `thumbnail.id         string|null     ID of thumbnail container\n` +
-         `zoom.expandedZoom    boolean         Enables larger zoom area\n\n`, []],
-
-      ['%cNotes:%c\n', ['color: #636e72; font-weight: bold;', '']],
-      [`- JavaScript config values override HTML data-* attributes.\n` +
-           `- All config values are optional unless required by a module.\n` +
-           `- Use data-minyatur-* or JS config depending on your setup.\n\n`, []],
-
-      ['%c============================================================%c\n', ['color: #6c5ce7;', '']]
-    ];
-
-    const message = lines.map(([text]) => text).join('');
-    const styles = lines.flatMap(([_, styles = []]) => styles);
-    console.log(message, ...styles);
+    // Print to console
+    console.log(messages.join(''), ...styles);
   }
 }
 
