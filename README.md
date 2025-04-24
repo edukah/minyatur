@@ -47,7 +47,7 @@ Minyatur also allows configuring behavior using `data-*` attributes directly in 
      data-minyatur-aspect-ratio="16:9"
      data-minyatur-module="thumbnail,fullscreen,message,zoom"
      data-minyatur-thumbnail-type="slider"
-     data-thumbnail-id="thumbs">
+     data-minaytur-thumbnail-id="thumbs">
   <img src="1.jpg" data-message="First image" />
   <img src="2.jpg" data-message="Second image" />
   <img src="3.jpg" data-message="Third image" />
