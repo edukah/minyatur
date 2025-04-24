@@ -89,7 +89,7 @@ new Minyatur({
 <div id="slider"
      data-minyatur-module="thumbnail,fullscreen,message,zoom"
      data-minyatur-thumbnail-type="slider"
-     data-thumbnail-id="thumbs">
+     data-minyatur-thumbnail-id="thumbs">
   <!-- slider items here -->
 </div>
 ```
