@@ -22,7 +22,7 @@
   {"text": "     data-minyatur-aspect-ratio=\"16:9\"", "style": ""},
   {"text": "     data-minyatur-module=\"thumbnail,fullscreen,message,zoom\"", "style": ""},
   {"text": "     data-minyatur-thumbnail-type=\"slider\"", "style": ""},
-  {"text": "     data-thumbnail-id=\"thumbs\">", "style": ""},
+  {"text": "     data-minyatur-thumbnail-id=\"thumbs\">", "style": ""},
   {"text": "  <img src=\"1.jpg\" data-message=\"First image\" />", "style": ""},
   {"text": "  <img src=\"2.jpg\" data-message=\"Second image\" />", "style": ""},
   {"text": "</div>", "style": ""},
