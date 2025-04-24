@@ -1,14 +1,16 @@
 import Module from '../core/module.js';
 
 class Zoom extends Module {
+  eventAdded = false;
+
   constructor (sliderInstance) {
     super(sliderInstance, 'zoom');
 
     this.resultContainer = document.createElement('div');
-    this.resultContainer.classList.add('minyatur-zoom-result');
+    this.resultContainer.classList.add('minyatur-zoom__result');
 
     this.lens = document.createElement('div');
-    this.lens.classList.add('minyatur-zoom-lens');
+    this.lens.classList.add('minyatur-zoom__lens');
 
     this.sliderInstance.boardWrapper.appendChild(this.lens);
 
@@ -28,13 +30,9 @@ class Zoom extends Module {
     this.activeImageContainer = this.sliderInstance.boardList.children[this.sliderInstance.activeIndex];
     this.activeImage = this.activeImageContainer.querySelector('img');
 
-    if (!this.activeImage) {
+    if (!this.isZoomable(this.activeImage)) {
       return;
-    }
-
-    if (this.activeImage.naturalWidth <= this.getRenderedSize().width && this.activeImage.naturalHeight <= this.getRenderedSize().height) {
-      return;
-    }
+    } 
 
     this.eventAdded = true;
 
@@ -46,12 +44,18 @@ class Zoom extends Module {
   }
 
   zoomOut (event = null) {
-    this.eventAdded = null;
+    this.eventAdded = false;
 
     this.sliderInstance.boardWrapper.removeEventListener('mousemove', this._moveLens);
 
     this.lens.style = null;
     this.resultContainer.style = null;
+  }
+
+  isZoomable (img) {
+    const size = this.getRenderedSize();
+    
+    return img && (img.naturalWidth > size.width || img.naturalHeight > size.height);
   }
 
   insertItem () {

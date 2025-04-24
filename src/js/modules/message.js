@@ -14,14 +14,14 @@ class Message extends Module {
   getElement () {
     // Wrapper'ı buraya sadece contentWidthLimit ekleyebilmek için koyuyoruz. contentWidthLimit kaldırılırsa wrapper'de kaldırılabilir.
     this.boardListItemMessageWrapper = document.createElement('div');
-    this.boardListItemMessageWrapper.classList.add('minyatur-message-overlay');
+    this.boardListItemMessageWrapper.classList.add('minyatur-message__overlay');
 
     if (this.sliderInstance.config.has('contentWidthLimit')) {
       this.boardListItemMessageWrapper.style.maxWidth = this.sliderInstance.config.get('contentWidthLimit');
     }
 
     this.boardListItemMessageContainer = document.createElement('div');
-    this.boardListItemMessageContainer.classList.add('minyatur-message-container');
+    this.boardListItemMessageContainer.classList.add('minyatur-message__container');
     this.boardListItemMessageContainer.appendChild(document.createTextNode(this.messsage));
 
     this.boardListItemMessageWrapper.appendChild(this.boardListItemMessageContainer);

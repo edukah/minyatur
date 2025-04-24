@@ -1,13 +1,13 @@
-@use "../base/variables";
+@use '../base/variables';
 
-.minyatur-message-overlay {
+.minyatur-message__overlay {
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
   max-width: 50%;
 
-  .minyatur-message-container {
+  .minyatur-message__container {
     position: absolute;
     bottom: 3vmin;
     left: 3vmin;

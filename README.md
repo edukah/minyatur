@@ -1,7 +1,7 @@
 # 📸 Minyatur Slider
 
-[![GitHub](https://img.shields.io/badge/View_on_GitHub-blue?logo=github)](https://github.com/edukah/minyatur)
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![GitHub](https://img.shields.io/badge/View_on_GitHub-blue?logo=github)](https://github.com/edukah/minyatur)
 [![Live Demo](https://img.shields.io/badge/Demo-View%20Live-orange?logo=google-chrome)](https://edukah.github.io/minyatur/)
 
 Lightweight, modular slider 🧩 with HTML-based config, responsive support 📱 and smart features like zoom 🔎 & fullscreen 🖥️.

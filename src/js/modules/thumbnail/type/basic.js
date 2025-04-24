@@ -4,7 +4,7 @@ class Basic extends Thumbnail {
   constructor (sliderInstance) {
     super(sliderInstance);
 
-    this.thumbnailWrapper.classList.add('minyatur-thumbnail-basic');
+    this.thumbnailWrapper.classList.add('minyatur-thumbnail__basic');
 
     this.thumbnailList = document.createElement('ul');
     this.thumbnailList.positionX = 0;

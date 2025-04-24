@@ -8,11 +8,11 @@ class Div extends Module {
   init () {
     // div wrapper
     this.divWrapper = document.createElement('div');
-    this.divWrapper.classList.add('mfw-div-wrapper');
+    this.divWrapper.classList.add('minyatur-fullscreen_div__wrapper');
 
     // div container
     this.divContainer = document.createElement('div');
-    this.divContainer.classList.add('mfw-div-container');
+    this.divContainer.classList.add('minyatur-fullscreen_div__container');
 
     this.divWrapper.appendChild(this.divContainer);
 

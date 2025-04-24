@@ -6,7 +6,7 @@ class Slider extends Thumbnail {
     this.animating = false;
     this.scrollPaddingMultiplier = { right: 1.7, left: 0.5 };
 
-    this.thumbnailWrapper.classList.add('minyatur-thumbnail-snap');
+    this.thumbnailWrapper.classList.add('minyatur-thumbnail__snap');
 
     this.thumbnailContainer = document.createElement('div');
     this.thumbnailWrapper.appendChild(this.thumbnailContainer);

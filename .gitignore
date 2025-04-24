@@ -129,16 +129,9 @@ out
 .yarn/install-state.gz
 .pnp.*
 
-# Composer
-composer.phar
-/vendor/
-
 # Customized
-# PHP Public
-public/include/composer/
-
 # Documentation files (exclude all except README.md)
-!README.md
 *.md
+!README.md
 .htaccess
 /archive

@@ -5,7 +5,7 @@ class Control extends Module {
     super(sliderInstance, 'control'); // Yeni eklenen satır
 
     this.buttonContainer = document.createElement('div');
-    this.buttonContainer.classList.add('minyatur-board-button-container');
+    this.buttonContainer.classList.add('minyatur__button-container');
     this.sliderInstance.boardWrapper.appendChild(this.buttonContainer);
 
     if (this.sliderInstance.config.has('contentWidthLimit')) {
@@ -13,11 +13,11 @@ class Control extends Module {
     }
 
     this.prevButton = document.createElement('div');
-    this.prevButton.classList.add('minyatur-board-prev-button');
+    this.prevButton.classList.add('minyatur__button--prev');
     this.buttonContainer.appendChild(this.prevButton);
 
     this.nextButton = document.createElement('div');
-    this.nextButton.classList.add('minyatur-board-next-button');
+    this.nextButton.classList.add('minyatur__button--next');
     this.buttonContainer.appendChild(this.nextButton);
 
     this._prevItem = this.prevItem.bind(this);

@@ -4,7 +4,7 @@ class Dot extends Thumbnail {
   constructor (sliderInstance) {
     super(sliderInstance);
 
-    this.thumbnailWrapper.classList.add('minyatur-thumbnail-dot');
+    this.thumbnailWrapper.classList.add('minyatur-thumbnail__dot');
 
     this.thumbnailList = document.createElement('ul');
     this.thumbnailWrapper.appendChild(this.thumbnailList);

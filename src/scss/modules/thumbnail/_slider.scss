@@ -1,0 +1,82 @@
+.minyatur-thumbnail__snap {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  /*Gives room for arrow buttons*/
+  box-sizing: border-box;
+  user-select: none;
+
+  ul {
+    position: relative;
+    list-style: none;
+    padding: 6px 0;
+    margin: 0 auto;
+
+    display: flex;
+    flex-wrap: nowrap;
+    gap: min(2vw, 10px);
+
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    // scroll-snap-type: x mandatory;
+    // transition: all 2s;
+
+    // overscroll-behavior-x: contain;
+
+    /* Internet Explorer 10+ */
+    -ms-overflow-style: none;
+    /* Firefox */
+    scrollbar-width: none;
+
+    /* Safari and Chrome */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    li {
+      position: relative;
+
+      cursor: pointer;
+      height: min(10vmin, 50px);
+      width: min(10vmin, 50px);
+      border: 2px solid var(--color-primary-base);
+      opacity: 1;
+      list-style: none;
+
+      display: flex;
+      align-items: center;
+      // Bu 0 olmazsa itemler container küçüldükçe küçülüyor.
+      flex-shrink: 0;
+      // transition: all 0.2s;
+      // transform: scale(1);
+
+      // scroll-snap-align: start;
+
+      &+li {
+        // margin-left: 6px;
+      }
+
+      &.active,
+      &.active:hover {
+        border-color: var(--color-primary-dark);
+      }
+
+      &:hover {
+        background-color: var(--color-primary-light);
+      }
+
+      &>* {
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+        margin: 0 auto;
+
+        // iframe user agent border to none;
+        border: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.minyatur-thumbnail__dot {
+  position: relative;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  background-color: transparent;
+  z-index: 1;
+
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 0.5vw;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  li {
+    height: 0.5vh;
+    margin-top: 0;
+    background-color: var(--color-thumbnail-inactive);
+    opacity: 0.8;
+    cursor: pointer;
+    transition: all 0.4s;
+    flex-grow: 1;
+
+    &.active {
+      background-color: var(--color-thumbnail-active);
+      opacity: 1;
+
+      &:hover {
+        background-color: var(--color-thumbnail-active);
+      }
+    }
+
+    &:hover {
+      background-color: var(--color-thumbnail-hover);
+    }
+
+    margin-top: 2px;
+  }
+}

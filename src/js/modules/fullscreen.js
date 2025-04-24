@@ -40,7 +40,7 @@ class Fullscreen extends Module {
 
     this.mainWrapper = document.createElement('div');
     this.mainWrapper.id = this.containerId;
-    this.mainWrapper.classList.add('minyatur-fullscreen-wrapper');
+    this.mainWrapper.classList.add('minyatur-fullscreen');
 
     this.mainWrapper.addEventListener('dblclick', event => event.preventDefault());
     this.mainWrapper.addEventListener('click', event => event.preventDefault());
@@ -55,11 +55,11 @@ class Fullscreen extends Module {
     // this.mainWrapper.addEventListener('touchend', event => event.preventDefault(), { passive: false });
 
     this.backcloth = document.createElement('div');
-    this.backcloth.classList.add('mfw-backcloth');
+    this.backcloth.classList.add('minyatur-fullscreen__backcloth');
     this.mainWrapper.appendChild(this.backcloth);
 
     this.closeButtonContainer = document.createElement('div');
-    this.closeButtonContainer.classList.add('mfw-close-button-container');
+    this.closeButtonContainer.classList.add('minyatur-fullscreen__close-button-container');
     this.mainWrapper.appendChild(this.closeButtonContainer);
 
     this._hide = this.hide.bind(this);
