@@ -60,6 +60,7 @@ class Fullscreen extends Module {
 
     this.closeButtonContainer = document.createElement('div');
     this.closeButtonContainer.classList.add('minyatur-fullscreen__close-button-container');
+    this.closeButtonContainer.title = this.sliderInstance.language.get('close');
     this.mainWrapper.appendChild(this.closeButtonContainer);
 
     this._hide = this.hide.bind(this);

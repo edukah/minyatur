@@ -57,8 +57,11 @@ class Thumbnail extends Module {
 
   clickHandler (attachedElem, event) {
     const index = [].indexOf.call(this.thumbnailItems, attachedElem);
+
     if (index < 0) return;
+
     this.insertItem(index);
+
     this.sliderInstance.insertItem(index, { behavior: 'auto' });
   }
 

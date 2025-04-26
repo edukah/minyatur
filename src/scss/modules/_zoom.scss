@@ -11,7 +11,7 @@
   top: 0;
   left: 0;
   background-color: var(--color-zoom-lens);
-  z-index: 1;
+  z-index: 9;
 }
 
 .minyatur-zoom__result {
@@ -25,5 +25,5 @@
   box-sizing: border-box;
   /*set the size of the result div:*/
 
-  z-index: 1;
+  z-index: 999;
 }

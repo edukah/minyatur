@@ -27,8 +27,6 @@
   display: block !important;
   // margin-bottom: 17px;
 
-  @include hide-scrollbar;
-
   // hide elements until script is completed
   &>div:not([class]) {
     position: relative;
@@ -46,19 +44,6 @@
     box-sizing: border-box;
     overflow: hidden;
 
-    /* hide scrollbar */
-    /* Internet Explorer 10+ */
-    -ms-overflow-style: none;
-    /* Firefox */
-    scrollbar-width: none;
-
-    /* Safari and Chrome */
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    /* end hide scrollbar */
-
     ul {
       position: absolute;
 
@@ -75,9 +60,10 @@
       display: flex;
       flex-wrap: nowrap;
 
+      @include hide-scrollbar;
+
       overflow: auto;
       overflow-y: hidden;
-      scrollbar-width: none;
       scroll-behavior: smooth;
       scroll-snap-type: x mandatory;
     }

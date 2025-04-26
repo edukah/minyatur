@@ -6,12 +6,13 @@ const config = {
   loop: false, // Infinity loop.
   startIndex: 1, // The number of the image selected by default. The first image is number 1.
   styleAutoload: true, // Default styles are added to <head> automatically. If you want to add your own css, this field must be false.
-  languageCode: 'tr', // Language code
+  languageCode: 'en', // Language code
   module: [
     'thumbnail',
-    'fullscreen',
     'control',
-    'zoom'
+    // 'mouse',
+    // 'fullscreen',
+    // 'zoom'
   ]
 };
 

@@ -1,6 +1,7 @@
 import DEFAULTS from '../config.js';
 import Language from './language.js';
-import manualData from './manual.json';
+import AspectRatioManager from './ratio-sizer.js';
+import manualData from '../docs/manual.json';
 import defaultStyle from '!!css-loader?{"sourceMap":false,"exportType":"string"}!sass-loader?{"api":"modern"}!../../scss/main.scss';
 
 class Slider {
@@ -70,8 +71,9 @@ class Slider {
       this.boardWrapper.style.maxWidth = this.config.get('maxWidth');
     }
 
-    this.boardListContainerCalculateHeight();
+    this.aspectRatioManager = new AspectRatioManager(this);
 
+    this.boardListContainerCalculateHeight();
     this._boardListContainerCalculateHeight = this.boardListContainerCalculateHeight.bind(this);
     window.addEventListener('resize', this._boardListContainerCalculateHeight);
 
@@ -180,6 +182,7 @@ class Slider {
         this.boardList.appendChild(boardListItem);
 
         boardListItem.appendChild(item);
+        console.log(item);
 
         if (item.getAttribute('data-message')) {
           const MessageModule = await import('../modules/message.js');
@@ -238,14 +241,8 @@ class Slider {
   }
 
   boardListContainerCalculateHeight () {
-    const ratioPercent = this.config.get('aspectRatio').split(':');
-    const calculatedHeight = (this.boardWrapper.offsetWidth / ratioPercent[0]) * ratioPercent[1];
-
-    if (this.config.get('maxHeight') == null || (this.boardListContainer.offsetHeight <= parseInt(this.config.get('maxHeight')) && calculatedHeight <= parseInt(this.config.get('maxHeight')))) {
-      this.boardListContainer.style.paddingTop = `${100 / (ratioPercent[0] / ratioPercent[1])}%`;
-    } else {
-      this.boardListContainer.style.paddingTop = this.config.get('maxHeight');
-    }
+    const paddingTop = this.aspectRatioManager.calculatePaddingTop();
+    this.boardListContainer.style.paddingTop = paddingTop;
   }
 
   transitionOn () {

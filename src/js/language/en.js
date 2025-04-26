@@ -1,5 +1,3 @@
-const lang = {
-  close: 'Close'
+export default {
+  close: "Close"
 };
-
-export default lang;

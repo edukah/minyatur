@@ -3,16 +3,19 @@ class Language {
   static defaultLanguageCode = 'en';
 
   static async load (languageCode) {
+    const loadLang = async (code) => {
+      const module = await import(`../language/${code}.js`);
+      
+      return module.default;
+    };
+
     try {
-      const importModule = await import(`../language/${languageCode}.js`);
-      const importDefaultObject = importModule.default;
-
-      this.setAll(importDefaultObject);
-    } catch {
-      const importModule = await import(`../language/${this.defaultLanguageCode}.js`);
-      const importDefaultObject = importModule.default;
-
-      this.setAll(importDefaultObject);
+      const langData = await loadLang(languageCode);
+      this.setAll(langData);
+    } catch (err) {
+      console.warn(`[i18n] '${languageCode}' not found, falling back to '${this.defaultLanguageCode}'`, err);
+      const fallbackData = await loadLang(this.defaultLanguageCode);
+      this.setAll(fallbackData);
     }
   }
 
@@ -29,8 +32,8 @@ class Language {
   }
 
   static setAll (translationObject) {
-    Object.entries(translationObject).forEach(elem => {
-      this.set(elem[0], elem[1]);
+    Object.entries(translationObject).forEach(([key, value]) => {
+      this.set(key, value);
     });
   }
 

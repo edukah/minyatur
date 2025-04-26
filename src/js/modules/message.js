@@ -1,18 +1,24 @@
 import Module from '../core/module.js';
 
 class Message extends Module {
-  messsage = '';
+  static resizeInitialized = false;
 
   constructor (sliderInstance) {
     super(sliderInstance, 'message');
   }
 
-  setMessage (messsage) {
-    this.messsage = messsage;
+  setMessage (message) {
+    this.message = message;
+  }
+
+  init () {
+    if (!Message.resizeInitialized) {
+      window.addEventListener('resize', Message.calculateFontSize);
+      Message.resizeInitialized = true;
+    }
   }
 
   getElement () {
-    // Wrapper'ı buraya sadece contentWidthLimit ekleyebilmek için koyuyoruz. contentWidthLimit kaldırılırsa wrapper'de kaldırılabilir.
     this.boardListItemMessageWrapper = document.createElement('div');
     this.boardListItemMessageWrapper.classList.add('minyatur-message__overlay');
 
@@ -22,22 +28,28 @@ class Message extends Module {
 
     this.boardListItemMessageContainer = document.createElement('div');
     this.boardListItemMessageContainer.classList.add('minyatur-message__container');
-    this.boardListItemMessageContainer.appendChild(document.createTextNode(this.messsage));
+    this.boardListItemMessageContainer.appendChild(document.createTextNode(this.message));
 
     this.boardListItemMessageWrapper.appendChild(this.boardListItemMessageContainer);
 
-    this._calculateFontSize = this.calculateFontSize.bind(this);
-    window.addEventListener('resize', this._calculateFontSize);
-
-    this.calculateFontSize();
+    Message.calculateFontSize();
 
     return this.boardListItemMessageWrapper;
   }
 
-  calculateFontSize () {
-    const minimumLenght = Math.min(this.sliderInstance.boardWrapper.offsetWidth, this.sliderInstance.boardWrapper.offsetHeight);
+  static calculateFontSize () {
+    const wrappers = document.querySelectorAll('.minyatur-message__overlay');
+    for (const wrapper of wrappers) {
+      const container = wrapper.querySelector('.minyatur-message__container');
+      if (!container) continue;
 
-    this.boardListItemMessageContainer.style.fontSize = `${parseInt(minimumLenght) / 12}px`;
+      const width = wrapper.offsetWidth;
+      const height = wrapper.offsetHeight;
+
+      const minSide = Math.min(width, height);
+
+      container.style.fontSize = `${Math.floor(minSide / 12)}px`;
+    }
   }
 }
 

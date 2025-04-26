@@ -102,14 +102,14 @@ new Minyatur({
 
 | Key                 | Type             | Default      | Description |
 |---------------------|------------------|--------------|-------------|
-| `aspectRatio`       | `string`         | `'16:9'`     | Slider display ratio (`width:height`) |
+| `aspectRatio`       | `string`         | `'16:9'`     | Slider display ratio (`width:height`) or DSL rules (see below) |
 | `maxWidth`          | `string \| null` | `null`       | Maximum width of the slider container |
 | `maxHeight`         | `string \| null` | `null`       | Maximum height of the slider container |
 | `contentWidthLimit` | `string`         | `'1250px'`   | Width limit for button container |
 | `loop`              | `boolean`        | `false`      | Enables infinite sliding |
 | `startIndex`        | `number`         | `1`          | Index of the initial visible item (starting from 1) |
 | `styleAutoload`     | `boolean`        | `true`       | Injects default styles automatically |
-| `languageCode`      | `string`         | `'tr'`       | Language code (e.g. `'en'`, `'tr'`) |
+| `languageCode`      | `string`         | `'en'`       | Language code (e.g. `'en'`, `'tr'`) |
 | `module`            | `string[]`       | `[...]`      | List of module names to activate |
 
 
@@ -135,6 +135,46 @@ new Minyatur({
 | `control`    | Adds left/right navigation buttons |
 | `mouse`      | Enables drag and swipe interaction |
 | `zoom`       | Adds magnifier effect on hover |
+
+---
+
+## 🔬 Responsive Aspect Ratio DSL
+
+Minyatur supports smart aspect ratio management via a compact DSL (Domain Specific Language) string.
+
+### Syntax Overview:
+
+```text
+[ratio]<[breakpoint]
+[breakpoint]<[ratio]
+[min]<[ratio]<[max]
+```
+
+### Examples:
+
+```js
+new Minyatur({
+  target: '#slider',
+  aspectRatio: '1:1<800,16:9',
+  module: ['fullscreen', 'zoom']
+});
+```
+
+```html
+<!-- 1:1 for <800px, 16:9 for others -->
+<div data-minyatur-aspect-ratio="1:1<800,16:9"></div>
+
+<!-- 4:3 only above 1200px, 1:1 otherwise -->
+<div data-minyatur-aspect-ratio="1200<4:3,1:1"></div>
+
+<!-- Full range setup -->
+<div data-minyatur-aspect-ratio="1:1<800,800<16:9<1200,1200<3:1"></div>
+```
+
+### Parsing & Behavior:
+- All DSL strings are parsed once at initialization.
+- If no fallback ratio is defined, `1:1` is used and a warning is shown.
+- The final DSL rule (pure ratio) is always treated as `fixed`, and used when no media queries match.
 
 ---
 

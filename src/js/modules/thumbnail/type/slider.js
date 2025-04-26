@@ -86,8 +86,6 @@ class Slider extends Thumbnail {
     this.thumbnailList.scrollBy(scrollDelta, 0);
   }
 
-  x;
-
   slideNext () {
     if ((this.thumbnailList.offsetWidth + this.thumbnailList.scrollLeft) >= this.thumbnailList.scrollWidth) {
       this.nextEndMotion();

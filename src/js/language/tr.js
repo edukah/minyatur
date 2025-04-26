@@ -1,5 +1,3 @@
-const lang = {
-  close: 'Kapat'
+export default {
+  close: "Kapat"
 };
-
-export default lang;

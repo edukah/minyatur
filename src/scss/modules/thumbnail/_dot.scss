@@ -13,20 +13,35 @@
     align-items: center;
     flex-wrap: wrap;
     list-style: none;
-    gap: 0.5vw;
+    gap: 1.1vw;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
   }
 
   li {
-    height: 0.5vh;
+    height: 0.7vh;
     margin-top: 0;
     background-color: var(--color-thumbnail-inactive);
     opacity: 0.8;
     cursor: pointer;
     transition: all 0.4s;
     flex-grow: 1;
+
+    // Fixes mysterious 1px lines (ghost borders) that sometimes appear
+    // at specific height values or fractional pixel positions on certain devices,
+    // especially mobile browsers with high DPI and subpixel rendering quirks.
+    //
+    // The issue often occurs when height values like `5px`, `0.5vh`, or `calc(...)`
+    // trigger anti-aliasing artifacts or rendering bleed-through from sibling elements.
+    //
+    // Applying `transform: translateZ(0)` forces the browser to create a new composite layer.
+    // This isolates the element's rendering and eliminates visual artifacts
+    // caused by GPU compositing issues.
+    //
+    // TL;DR: A harmless 3D transform that performs a CSS exorcism for subtle rendering bugs.
+    transform: translateZ(0);
+    //
 
     &.active {
       background-color: var(--color-thumbnail-active);
