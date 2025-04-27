@@ -143,10 +143,6 @@ footer p {
   margin-top: 40px;
 }
 
-.slider-section div {
-  max-width: 900px;
-}
-
 /* dark mode */
 body.dark-mode {
   --nav-bg: #121212;
@@ -277,6 +273,8 @@ body.dark-mode {
   gap: 2rem;
   list-style: none;
   padding: 10px 0;
+  text-align: unset;
+  margin: 0;
 }
 
 /* Responsive */
