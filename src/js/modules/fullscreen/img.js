@@ -47,7 +47,6 @@ class Img extends Module {
         this.imageDiv.scrollLeft = scrollTarget.x;
       }  
 
-      console.log(scrollTarget.y);
       if(scrollTarget.y > 10) {
         this.imageDiv.scrollTop = scrollTarget.y;
       }
