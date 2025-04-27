@@ -7,7 +7,7 @@
     <title>Minyatur Example – Combined Modules</title>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script type="text/javascript" src="assets/js/script.js"></script>
-    <link rel="stylesheet" type="text/css" href="assets/font-awesome-6/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <!-- --- -->
     <script type="text/javascript" src="assets/minyatur.min.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/minyatur.min.css">
@@ -27,7 +27,8 @@
                         <div class="navi-popup" id="examplesPopup">
                             <h3>Examples</h3>
                             <ul>
-                                <li><a href="all.html">All</li>
+                                <li><a href="aspect_ratio.html">Aspect Ratio</li>
+                                <li><a href="all.html">All Modules</li>
                                 <li><a href="buttons.html">Buttons</a></li>
                                 <li><a href="fullscreen.html">Fullscreen</a></li>
                                 <li><a href="message.html">Message</a></li>
@@ -50,12 +51,16 @@
         <div class="content-container">
             <div class="content-header">
                 <h1>Minyatur – Combined Example Index</h1>
-                <p>This page showcases two full-featured sliders using multiple modules and configuration techniques.</p>
+                <p>This page showcases two full-featured sliders using multiple modules and configuration techniques.
+                </p>
             </div>
             <div class="content">
                 <h2>Slider 1: Configured via Data Attributes</h2>
-                <p>Modules: <code>control</code>, <code>thumbnail (dot)</code>, <code>message</code>, <code>fullscreen</code></p>
-                <div id="slider-combo-1" data-minyatur-module="control,thumbnail,message,fullscreen" data-minyatur-thumbnail-type="dot">
+                <p>Modules: <code>fullscreen</code>, <code>control</code>, <code>thumbnail (dot)</code>,
+                    <code>message</code>
+                </p>
+                <div id="slider-combo-1" data-minyatur-module="fullscreen,control,thumbnail,message"
+                    data-minyatur-thumbnail-type="dot">
                     <div>
                         <img src="assets/image/bird.png" alt="Bird" data-message="Dot Navigation - Bird">
                         <img src="assets/image/cat.png" alt="Cat" data-message="Dot Navigation - Cat">
@@ -66,13 +71,40 @@
             </div>
             <div class="content">
                 <h2>Slider 2: Configured via JavaScript</h2>
-                <p>Modules: <code>fullscreen</code>, <code>thumbnail (slider)</code>, <code>zoom</code>, <code>mouse</code></p>
+                <p>Modules: <code>control</code>, <code>thumbnail (slider)</code>, <code>mouse drag</code></p>
                 <div id="slider-combo-2">
                     <div>
                         <img src="assets/image/hamster.png" alt="Hamster">
                         <img src="assets/image/uni.png" alt="Unicorn">
                         <img src="assets/image/cat.png" alt="Cat">
                         <img src="assets/image/fish.png" alt="Fish">
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <h2>Slider 3: Responsive Aspect Ratio Example</h2>
+                <p>
+                    This slider demonstrates the <strong>Responsive Aspect Ratio</strong> system.
+                </p>
+                <div id="slider-dsl-3" data-minyatur-module="fullscreen,control,thumbnail,message"
+                    data-minyatur-thumbnail-type="slider" data-minyatur-aspect-ratio="1:1<750,750<16:9">
+                    <div>
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/cat_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/cat.png">
+                            <img src="assets/image/cat.png" alt="Cat" data-message="Responsive Aspect - Cat">
+                        </picture>
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/hamster_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/hamster.png">
+                            <img src="assets/image/hamster.png" alt="Hamster"
+                                data-message="Responsive Aspect - Hamster">
+                        </picture>
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/dog_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/dog.png">
+                            <img src="assets/image/dog.png" alt="Dog" data-message="Responsive Aspect - Dog">
+                        </picture>
                     </div>
                 </div>
             </div>
@@ -88,11 +120,14 @@
         // Initialize JS-configured slider
         new Minyatur({
             target: document.getElementById('slider-combo-2'),
-            module: ['fullscreen', 'thumbnail', 'zoom', 'mouse'],
+            module: ['control', 'thumbnail', 'mouse'],
             thumbnail: {
                 type: 'slider'
             }
         });
+
+        // Initialize DSL aspect ratio slider
+        new Minyatur({ target: document.getElementById('slider-dsl-3') });
     </script>
 </body>
 

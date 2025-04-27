@@ -182,7 +182,6 @@ class Slider {
         this.boardList.appendChild(boardListItem);
 
         boardListItem.appendChild(item);
-        console.log(item);
 
         if (item.getAttribute('data-message')) {
           const MessageModule = await import('../modules/message.js');

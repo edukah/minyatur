@@ -1,4 +1,4 @@
-@use '../base/variables';
+@use './variables';
 
 @mixin hide-scrollbar {
   /* hide scrollbar */
@@ -87,6 +87,7 @@
       scroll-snap-align: start;
 
       img,
+      picture,
       i,
       video {
         /* Note: If transitionType is zoom, it will be overridden to cover. */
@@ -100,6 +101,7 @@
       }
 
       img,
+      picture,
       video {
         object-fit: scale-down;
       }

@@ -83,6 +83,20 @@ p {
   margin: 0 auto 2rem;
 }
 
+pre {
+  text-align: center;
+  margin: 0 auto 2rem;
+}
+
+ul {
+  text-align: center;
+  margin: 0 auto 2rem;
+}
+
+li {
+  list-style: none;
+}
+
 /* Footer */
 footer {
   text-align: center;
@@ -125,8 +139,12 @@ footer p {
   margin: 0 auto;
 }
 
-.content ~ .content {
+.content~.content {
   margin-top: 40px;
+}
+
+.slider-section div {
+  max-width: 900px;
 }
 
 /* dark mode */

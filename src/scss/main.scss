@@ -1,10 +1,11 @@
-@use 'base/variables';
-@use 'base/minyatur';
+@use './base/variables';
+@use './base/minyatur';
+@use './base/buttons';
 
-@use 'modules/thumbnail/basic';
-@use 'modules/thumbnail/dot';
-@use 'modules/thumbnail/slider';
+@use './modules/thumbnail/basic';
+@use './modules/thumbnail/dot';
+@use './modules/thumbnail/slider';
 
-@use 'modules/fullscreen';
-@use 'modules/message';
-@use 'modules/zoom';
+@use './modules/fullscreen';
+@use './modules/message';
+@use './modules/zoom';

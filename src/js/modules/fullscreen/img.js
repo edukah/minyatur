@@ -153,6 +153,15 @@ class Img extends Module {
     this.mainWrapper.appendChild(this.imageWrapper);
   }
 
+  imageInit () {
+    const activeSliderItem = this.sliderInstance.boardList.children[this.sliderInstance.activeIndex].firstElementChild;
+
+    this.imageElem.src = activeSliderItem.src;
+    this.imageElem.setAttribute('data-zoom-max-scale', '2');
+
+    this.zoomOut();
+  }
+
   show () {
     if (!this.imageWrapper) {
       this.init();
@@ -171,23 +180,12 @@ class Img extends Module {
     this.zoomOut();
   }
 
-  imageInit () {
-    const activeSliderItem = this.sliderInstance.boardList.children[this.sliderInstance.activeIndex].firstElementChild;
-
-    this.imageElem.src = activeSliderItem.src;
-    this.imageElem.setAttribute('data-zoom-max-scale', '2');
-
-    this.zoomOut();
-  }
-
   getZoomMaxScale () {
     return parseFloat(this.imageElem.getAttribute('data-zoom-max-scale') || 2);
   }
 
   getZoomMaxWidth () {
-    const imageWidth = this.imageElem.naturalWidth || this.imageElem.width;
-
-    return imageWidth * this.getZoomMaxScale();
+    return Math.min(this.imageElem.naturalWidth * this.getZoomMaxScale(), this.imageElem.width * this.getZoomMaxScale(), window.innerWidth * 3);
   }
 
   zoomIn (targetWidthWithoutPx, event = null) {

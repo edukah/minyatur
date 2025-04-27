@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minyatur Example – Fullscreen Module</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- --- -->
+    <script type="text/javascript" src="assets/minyatur.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/minyatur.min.css">
+</head>
+
+<body>
+    <header>
+        <!-- Navigation Header -->
+        <nav class="top-navbar">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li>
+                        <a href="javascript:void(0)" onclick="openPopup(); return false;">Examples</a>
+                        <!-- Navbar içinde (nav-links'ten sonra) bu div'i ekleyin -->
+                        <div class="navi-popup-overlay" id="examplesPopupOverlay"></div>
+                        <div class="navi-popup" id="examplesPopup">
+                            <h3>Examples</h3>
+                            <ul>
+                                <li><a href="aspect_ratio.html">Aspect Ratio</li>
+                                <li><a href="all.html">All Modules</li>
+                                <li><a href="buttons.html">Buttons</a></li>
+                                <li><a href="fullscreen.html">Fullscreen</a></li>
+                                <li><a href="message.html">Message</a></li>
+                                <li><a href="mouse.html">Mouse</a></li>
+                                <li><a href="thumbnails.html">Thumbnails</a></li>
+                                <li><a href="zoom.html">Zoom</a></li>
+                            </ul>
+                            <button class="close-popup" onclick="closePopup()">✕</button>
+                        </div>
+                    </li>
+                    <li><a href="https://github.com/edukah/minyatur" target="_blank">GitHub</a></li>
+                </ul>
+                <div class="dark-mode-button-container">
+                    <div class="mode-toggle-switch" onclick="toggleMode()"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="content-container">
+            <h1>Minyatur – Responsive Aspect Ratio DSL</h1>
+            <p>
+                This example demonstrates the <strong>Responsive Aspect Ratio DSL</strong> system,
+                allowing the slider's aspect ratio to adapt dynamically based on the screen width.
+            </p>
+            <p>
+                The <strong>Aspect Ratio DSL</strong> is a compact syntax that defines ratio rules depending on screen width.
+                In this example, the definition is: <br> <code>1:1&lt;800,800&lt;16:9</code>
+            </p>
+            <pre></pre>
+            <p style="margin-bottom: 0;">
+                Which means:
+            </p>
+            <ul>
+                <li><strong>1:1</strong> aspect ratio when the screen width is less than <strong>800px</strong></li>
+                <li><strong>16:9</strong> aspect ratio when the screen width is <strong>800px or wider</strong></li>
+            </ul>
+            <p style="margin-bottom: 0;">
+                This DSL string follows the general format:
+            </p>
+            <pre><code>[min]<[ratio]<[max]</code> or <code>[ratio]<[breakpoint]</code> or <code>[breakpoint]<[ratio]</code></pre>
+            <p>
+                You can define multiple ranges separated by commas.
+                If no matching rule is found, a default (fixed) ratio is applied automatically.
+            </p>
+
+            <div class="slider-section">
+                <div id="slider-aspect-ratio" data-minyatur-module="fullscreen,control" data-minyatur-aspect-ratio="1:1<800,800<16:9">
+                    <div>
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/bird_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/bird.png">
+                            <img src="assets/image/bird.png" alt="Bird">
+                        </picture>
+
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/cat_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/cat.png">
+                            <img src="assets/image/cat.png" alt="Cat">
+                        </picture>
+
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/dog_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/dog.png">
+                            <img src="assets/image/dog.png" alt="Dog">
+                        </picture>
+
+                        <picture>
+                            <source media="(max-width: 799px)" srcset="assets/image/fish_narrow.png">
+                            <source media="(min-width: 800px)" srcset="assets/image/fish.png">
+                            <img src="assets/image/fish.png" alt="Fish">
+                        </picture>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Minyatur Slider &copy; <span id="currentYear"></span> | MIT License</p>
+    </footer>
+    <script type="text/javascript">
+        new Minyatur({ target: document.getElementById('slider-aspect-ratio') });
+    </script>
+</body>
+
+</html>

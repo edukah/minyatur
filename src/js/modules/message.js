@@ -1,21 +1,20 @@
 import Module from '../core/module.js';
 
 class Message extends Module {
-  static resizeInitialized = false;
+  static _calculateFontSize = null;
 
   constructor (sliderInstance) {
     super(sliderInstance, 'message');
+
+    if (!Message._calculateFontSize) {
+      Message._calculateFontSize = Message.calculateFontSize.bind(null, this.sliderInstance);
+
+      window.addEventListener('resize', Message._calculateFontSize);
+    }
   }
 
   setMessage (message) {
     this.message = message;
-  }
-
-  init () {
-    if (!Message.resizeInitialized) {
-      window.addEventListener('resize', Message.calculateFontSize);
-      Message.resizeInitialized = true;
-    }
   }
 
   getElement () {
@@ -32,23 +31,18 @@ class Message extends Module {
 
     this.boardListItemMessageWrapper.appendChild(this.boardListItemMessageContainer);
 
-    Message.calculateFontSize();
+    Message.calculateFontSize(this.sliderInstance);
 
     return this.boardListItemMessageWrapper;
   }
 
-  static calculateFontSize () {
-    const wrappers = document.querySelectorAll('.minyatur-message__overlay');
-    for (const wrapper of wrappers) {
-      const container = wrapper.querySelector('.minyatur-message__container');
-      if (!container) continue;
+  static calculateFontSize (sliderInstance) {
+    const minSide = Math.min(sliderInstance.boardWrapper.offsetWidth, sliderInstance.boardWrapper.offsetHeight);
+    const fontSize = `${Math.floor(minSide / 10)}px`;
 
-      const width = wrapper.offsetWidth;
-      const height = wrapper.offsetHeight;
-
-      const minSide = Math.min(width, height);
-
-      container.style.fontSize = `${Math.floor(minSide / 12)}px`;
+    const containers = document.querySelectorAll('.minyatur-message__container');
+    for (const container of containers) {
+      container.style.fontSize = fontSize;
     }
   }
 }
