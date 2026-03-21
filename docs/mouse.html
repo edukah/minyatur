@@ -21,26 +21,25 @@
             <div class="nav-container">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Home</a></li>
-                    <li>
-                        <a href="javascript:void(0)" onclick="openPopup(); return false;">Examples</a>
-                        <div class="navi-popup-overlay" id="examplesPopupOverlay"></div>
-                        <div class="navi-popup" id="examplesPopup">
-                            <h3>Examples</h3>
-                            <ul>
-                                <li><a href="aspect_ratio.html">Aspect Ratio</a></li>
-                                <li><a href="all.html">All Modules</a></li>
-                                <li><a href="buttons.html">Buttons</a></li>
-                                <li><a href="fullscreen.html">Fullscreen</a></li>
-                                <li><a href="message.html">Message</a></li>
-                                <li><a href="mouse.html">Mouse</a></li>
-                                <li><a href="thumbnails.html">Thumbnails</a></li>
-                                <li><a href="zoom.html">Zoom</a></li>
-                            </ul>
-                            <button class="close-popup" onclick="closePopup()">✕</button>
-                        </div>
-                    </li>
+                    <li><a href="javascript:void(0)" onclick="openPopup(); return false;">Examples</a></li>
                     <li><a href="https://github.com/edukah/minyatur" target="_blank">GitHub</a></li>
                 </ul>
+                <div class="navi-popup-overlay" id="examplesPopupOverlay" onclick="closePopup()">
+                    <div class="navi-popup" id="examplesPopup" onclick="event.stopPropagation()">
+                        <h3>Examples</h3>
+                        <ul>
+                            <li><a href="aspect_ratio.html">Aspect Ratio</a></li>
+                            <li><a href="all.html">All Modules</a></li>
+                            <li><a href="buttons.html">Buttons</a></li>
+                            <li><a href="fullscreen.html">Fullscreen</a></li>
+                            <li><a href="message.html">Message</a></li>
+                            <li><a href="mouse.html">Mouse</a></li>
+                            <li><a href="thumbnails.html">Thumbnails</a></li>
+                            <li><a href="zoom.html">Zoom</a></li>
+                        </ul>
+                        <button class="close-popup" onclick="closePopup()">&#10005;</button>
+                    </div>
+                </div>
                 <div class="dark-mode-button-container">
                     <div class="mode-toggle-switch" onclick="toggleMode()"></div>
                 </div>
@@ -66,6 +65,26 @@
     <footer>
         <p>Minyatur Slider &copy; <span id="currentYear"></span> | MIT License</p>
     </footer>
+    <nav class="bottom-tab">
+        <div class="bottom-tab__bar">
+            <a href="index.html" class="bottom-tab__item">
+                <i class="ph-fill ph-house"></i>
+                <span>Home</span>
+            </a>
+            <button class="bottom-tab__item" onclick="openPopup()">
+                <i class="ph-fill ph-squares-four"></i>
+                <span>Examples</span>
+            </button>
+            <button class="bottom-tab__item" onclick="toggleMode()">
+                <i class="ph-fill ph-moon"></i>
+                <span>Theme</span>
+            </button>
+            <a href="https://github.com/edukah/minyatur" target="_blank" class="bottom-tab__item">
+                <i class="ph-fill ph-github-logo"></i>
+                <span>GitHub</span>
+            </a>
+        </div>
+    </nav>
     <script type="text/javascript">
         new Minyatur({ target: document.getElementById('slider-mouse') });
     </script>
