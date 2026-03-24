@@ -89,7 +89,7 @@
   user-select: none;
 }
 
-@media only screen and (max-width: variables.$breakpoint-md) {
+@media (max-width: variables.$breakpoint-md) {
   .minyatur__button-container {
     // display: none;
   }

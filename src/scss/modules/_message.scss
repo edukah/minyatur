@@ -18,7 +18,7 @@
     font-weight: 600;
     padding: 0.5vmin 1vmin;
 
-    @media only screen and (max-width: variables.$breakpoint-md) {
+    @media (max-width: variables.$breakpoint-md) {
       left: 10px;
     }
   }
