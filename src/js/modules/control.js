@@ -22,17 +22,15 @@ class Control extends Module {
       this.buttonContainer.style.maxWidth = this.sliderInstance.config.get('contentWidthLimit');
     }
 
-    this.prevButton = document.createElement('div');
+    this.prevButton = document.createElement('button');
+    this.prevButton.type = 'button';
     this.prevButton.classList.add('minyatur__button--prev');
-    this.prevButton.setAttribute('role', 'button');
-    this.prevButton.setAttribute('tabindex', '0');
     this.prevButton.setAttribute('aria-label', 'Previous');
     this.buttonContainer.appendChild(this.prevButton);
 
-    this.nextButton = document.createElement('div');
+    this.nextButton = document.createElement('button');
+    this.nextButton.type = 'button';
     this.nextButton.classList.add('minyatur__button--next');
-    this.nextButton.setAttribute('role', 'button');
-    this.nextButton.setAttribute('tabindex', '0');
     this.nextButton.setAttribute('aria-label', 'Next');
     this.buttonContainer.appendChild(this.nextButton);
 
@@ -41,22 +39,6 @@ class Control extends Module {
 
     this._nextItem = this.nextItem.bind(this);
     this.nextButton.addEventListener('click', this._nextItem);
-
-    this._prevKeydown = (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.prevButton.click();
-      }
-    };
-    this.prevButton.addEventListener('keydown', this._prevKeydown);
-
-    this._nextKeydown = (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        this.nextButton.click();
-      }
-    };
-    this.nextButton.addEventListener('keydown', this._nextKeydown);
   }
 
   removeButtons () {
@@ -65,9 +47,7 @@ class Control extends Module {
     }
 
     this.prevButton.removeEventListener('click', this._prevItem);
-    this.prevButton.removeEventListener('keydown', this._prevKeydown);
     this.nextButton.removeEventListener('click', this._nextItem);
-    this.nextButton.removeEventListener('keydown', this._nextKeydown);
 
     this.buttonContainer.remove();
     this.buttonContainer = null;
