@@ -85,8 +85,17 @@ class Thumbnail extends Module {
 
       const thumbnailListItem = ImportModuleClass[source](sliderItem);
 
+      thumbnailListItem.setAttribute('role', 'button');
+      thumbnailListItem.setAttribute('tabindex', '0');
+
       const clickHandler = this.clickHandler.bind(this, thumbnailListItem);
       thumbnailListItem.addEventListener('click', clickHandler);
+      thumbnailListItem.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          thumbnailListItem.click();
+        }
+      });
 
       if (atIndex != null && atIndex < this.thumbnailList.children.length) {
         this.thumbnailList.insertBefore(thumbnailListItem, this.thumbnailList.children[atIndex]);
