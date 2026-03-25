@@ -17,13 +17,13 @@ class Language {
       const langData = await loadLang(languageCode);
       this.setAll(langData);
     } catch (err) {
-      console.warn(`[i18n] '${languageCode}' not found, falling back to '${this.defaultLanguageCode}'`, err);
+      console.warn(`[Minyatur|Language] '${languageCode}' not found, falling back to '${this.defaultLanguageCode}'`, err);
 
       try {
         const fallbackData = await loadLang(this.defaultLanguageCode);
         this.setAll(fallbackData);
       } catch (fallbackErr) {
-        console.error(`[i18n] Fallback language '${this.defaultLanguageCode}' also failed to load.`, fallbackErr);
+        console.error(`[Minyatur|Language] Fallback language '${this.defaultLanguageCode}' also failed to load.`, fallbackErr);
       }
     }
   }

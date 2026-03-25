@@ -194,10 +194,10 @@ class Slider {
       try {
         onError(error, context);
       } catch (callbackError) {
-        console.error('Minyatur: onError callback threw an error.', callbackError);
+        console.error('[Minyatur|Slider] onError callback threw an error.', callbackError);
       }
     } else {
-      console.error('Minyatur:', error.message || error, context);
+      console.error('[Minyatur|Slider]', error.message || error, context);
     }
   }
 
@@ -773,7 +773,7 @@ class Slider {
   }
 
   #printItemErrorMessage () {
-    console.error('Minyatur Error: There is no image to show.',
+    console.error('[Minyatur|Slider] There is no image to show.',
       '\n',
       'Please insert `div` inside of `slider container element` and then insert elements to the `div`.',
       '\n',
@@ -810,7 +810,7 @@ class Slider {
     const messages = lines.map(([text]) => text);
     const styles = lines.flatMap(([_, style]) => style || '');
 
-    console.log(messages.join(''), ...styles);
+    console.info(messages.join(''), ...styles);
   }
 }
 

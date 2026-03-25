@@ -43,7 +43,7 @@ export default class RatioSizer {
       const badOps = ['>=', '<=', '>'];
       for (const op of badOps) {
         if (seg.includes(op)) {
-          console.warn(`[Minyatur] DSL operator "${op}" detected in "${originalSeg}". Replaced with "<".`);
+          console.warn(`[Minyatur|RatioSizer] DSL operator "${op}" detected in "${originalSeg}". Replaced with "<".`);
           seg = seg.replaceAll(op, '<');
         }
       }
@@ -56,7 +56,7 @@ export default class RatioSizer {
         const max = Number(fullMatch[3]);
 
         if (min >= max) {
-          console.warn(`[Minyatur] Invalid range in segment "${originalSeg}": ${min} >= ${max}. Skipped.`);
+          console.warn(`[Minyatur|RatioSizer] Invalid range in segment "${originalSeg}": ${min} >= ${max}. Skipped.`);
           continue;
         }
 
@@ -101,14 +101,14 @@ export default class RatioSizer {
         continue;
       }
 
-      console.warn(`[Minyatur] Skipping unrecognized DSL segment: "${originalSeg}".`);
+      console.warn(`[Minyatur|RatioSizer] Skipping unrecognized DSL segment: "${originalSeg}".`);
     }
 
     // Fixed always required: use last pure ratio or fallback to 1
     if (lastPureRatio != null) {
       rules.fixed = lastPureRatio;
     } else {
-      console.warn('[Minyatur] No fixed ratio defined in DSL. Defaulting to 1:1 aspect ratio.');
+      console.warn('[Minyatur|RatioSizer] No fixed ratio defined in DSL. Defaulting to 1:1 aspect ratio.');
       rules.fixed = 1;
     }
 
