@@ -39,6 +39,8 @@ class Slider {
       throw new Error('Minyatur: Please provide a valid DOM element or selector.');
     }
 
+    if (this.mainContainer.__minyatur) return this.mainContainer.__minyatur;
+
     this.mainContainer.classList.add('minyatur');
     this.mainContainer.__minyatur = this;
 
