@@ -37,10 +37,32 @@ import Minyatur from 'minyatur';
 
 ### Browser (no bundler)
 
+**unpkg**
+
 ```html
 <link rel="stylesheet" href="https://unpkg.com/minyatur/dist/minyatur.min.css">
 <script type="module">
   import Minyatur from 'https://unpkg.com/minyatur/dist/minyatur.esm.js';
+  const slider = new Minyatur({ target: '#slider' });
+</script>
+```
+
+**jsDelivr (npm)**
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minyatur/dist/minyatur.min.css">
+<script type="module">
+  import Minyatur from 'https://cdn.jsdelivr.net/npm/minyatur/dist/minyatur.esm.js';
+  const slider = new Minyatur({ target: '#slider' });
+</script>
+```
+
+**jsDelivr (GitHub — works without npm publish)**
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/edukah/minyatur/dist/minyatur.min.css">
+<script type="module">
+  import Minyatur from 'https://cdn.jsdelivr.net/gh/edukah/minyatur/dist/minyatur.esm.js';
   const slider = new Minyatur({ target: '#slider' });
 </script>
 ```
