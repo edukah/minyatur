@@ -1,6 +1,6 @@
 {
   "name": "minyatur",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Lightweight, modular slider with HTML-based config, responsive support and smart features like zoom & fullscreen.",
   "type": "module",
   "main": "dist/minyatur.esm.js",
