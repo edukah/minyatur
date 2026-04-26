@@ -6,6 +6,8 @@
 
 Lightweight, modular image slider with HTML-based config, responsive support, and smart features like zoom and fullscreen. Built with pure JavaScript.
 
+> Maintained on best-effort basis. Issues welcome but not guaranteed to be addressed.
+
 ---
 
 ## Features
