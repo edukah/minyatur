@@ -29,17 +29,20 @@ Lightweight, modular image slider with HTML-based config, responsive support, an
 npm install minyatur
 ```
 
-### Script Tag
-
-```html
-<link rel="stylesheet" href="dist/minyatur.min.css">
-<script src="dist/minyatur.min.js"></script>
-```
-
 ### Module Import
 
 ```js
 import Minyatur from 'minyatur';
+```
+
+### Browser (no bundler)
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/minyatur/dist/minyatur.min.css">
+<script type="module">
+  import Minyatur from 'https://unpkg.com/minyatur/dist/minyatur.esm.js';
+  const slider = new Minyatur({ target: '#slider' });
+</script>
 ```
 
 ### Styles

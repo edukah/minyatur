@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Lightweight, modular slider with HTML-based config, responsive support and smart features like zoom & fullscreen.",
   "type": "module",
-  "main": "dist/minyatur.min.js",
+  "main": "dist/minyatur.esm.js",
   "module": "dist/minyatur.esm.js",
   "types": "dist/minyatur.d.ts",
   "files": [
